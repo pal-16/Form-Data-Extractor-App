@@ -15,7 +15,6 @@ class Upload extends StatefulWidget {
 class __UploadState extends State<Upload> {
   File _storedImage;
   Future<void> _takePicture() async {
-
     final imageFile = await ImagePicker.pickImage(
       source: ImageSource.camera,
     );
@@ -23,18 +22,9 @@ class __UploadState extends State<Upload> {
       _storedImage = imageFile;
     });
   }
-   final appBar = AppBar(
-    title: Text(
-    "Terna_App",
-      style: TextStyle(color: Colors.white),
-    ),
-    backgroundColor: Color.fromRGBO(143, 148, 251, 1),
-  );
 
-  
 
   Future<void> _selectPicture() async {
-
     final imageFile = await ImagePicker.pickImage(
       source: ImageSource.gallery,
     );
@@ -43,70 +33,111 @@ class __UploadState extends State<Upload> {
     });
   }
 
-  Widget doneButton() {
-    return _storedImage != null? Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 45.0),
-      child: MaterialButton(
-        textColor: Colors.black,
-        onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Result()));
-        },
-        child: Text("Done"),
-      color: Color.fromRGBO(143, 148, 251, 1),
-        splashColor: Colors.white,
-        elevation: 5,
-        shape: StadiumBorder(),
+  Widget appBar(scaffoldkey) {
+    return AppBar(
+      title: Text(
+        "Terna App",
+        style: TextStyle(color: Colors.white),
       ),
-    ): SizedBox();
+      leading: IconButton(
+        icon: Icon(Icons.menu),
+        onPressed: () {
+          scaffoldkey.currentState.openDrawer();
+        },
+        color: Colors.white,
+      ),
+      actions: <Widget>[
+        IconButton(icon: Icon(Icons.settings), onPressed: (){})
+      ],
+      backgroundColor: Color.fromRGBO(143, 148, 251, 1),
+    );
   }
-    
+
+  Widget doneButton() {
+    return _storedImage != null
+        ? Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 6.0, horizontal: 45.0),
+            child: MaterialButton(
+              textColor: Colors.black,
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Result()));
+              },
+              child: Text(
+                "Done",
+                style: TextStyle(
+                  color: Colors.white
+                ),
+              ),
+              color: Color.fromRGBO(143, 148, 251, 1),
+              splashColor: Colors.white,
+              elevation: 5,
+              shape: StadiumBorder(),
+            ),
+          )
+        : SizedBox();
+  }
   @override
   Widget build(BuildContext context) {
+    final GlobalKey _scaffoldKey = new GlobalKey();
     return Scaffold(
-        drawer: AppDrawer(appBar),
-        appBar: appBar,
-        body: ListView(
+      key: _scaffoldKey,
+      drawer: MyAppDrawer(),
+      appBar: appBar(_scaffoldKey),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: Column(
+          mainAxisAlignment: _storedImage != null ? MainAxisAlignment.start : MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-              width: MediaQuery.of(context).size.width * 0.7,
-              height: MediaQuery.of(context).size.height * 0.5,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 3,
-                  color: Colors.grey,
+            Center(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: _storedImage != null? MediaQuery.of(context).size.height * 0.5 : MediaQuery.of(context).size.height * 0.2,
+                child: _storedImage != null
+                    ? Image.file(
+                        _storedImage,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                      )
+                    : Image.asset('assets/images/uploadlogo.png'),
+                alignment: Alignment.center,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+              margin: EdgeInsets.all(10),
+              child: RaisedButton(
+                shape: StadiumBorder(),
+                color: Color.fromRGBO(143, 148, 251, 1),
+                onPressed: _takePicture,
+                child: Text(
+                  "Take from Camera",
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
-              child: _storedImage != null
-                  ? Image.file(
-                      _storedImage,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                    )
-                  : Text(
-                      'Upload any kind of form you want to review',
-                      textAlign: TextAlign.center,
-                    ),
-              alignment: Alignment.center,
             ),
-              Container(
-                margin: EdgeInsets.all(10),
-                child: RaisedButton(
-                color: Color.fromRGBO(143, 148, 251, 1),
-                 onPressed: _takePicture,
-                 child: Text("Take from Camera"),
-                ),
-              )
-            , Container(
-                margin: EdgeInsets.all(10),
-                child: RaisedButton(
+            Text("or"),
+            Container(
+              margin: EdgeInsets.all(10),
+              child: RaisedButton(
+                shape: StadiumBorder(),
                 color: Color.fromRGBO(143, 148, 251, 1),
                 onPressed: _selectPicture,
-                child: Text("Pick from Gallery"),
+                child: Text(
+                  "Pick from Gallery",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
-              ),
+            ),
+              ],
+            ),
             doneButton(),
           ],
         ),
-      );
+      ),
+    );
   }
- }
+}

@@ -4,6 +4,7 @@ import '../screens/feedbackk.dart';
 import '../screens/upload.dart';
 import '../screens/summarize.dart';
 import '../screens/resume.dart';
+import '../screens/login.dart';
 
 class AppDrawer extends StatelessWidget {
   final AppBar appBar;
@@ -18,45 +19,30 @@ class AppDrawer extends StatelessWidget {
         color: Color.fromRGBO(143, 148, 251, 1),
         child: Column(
           children: <Widget>[
-            Container(
-              color: Colors.white,
-              width: double.infinity,
-              height: MediaQuery.of(context).orientation == Orientation.portrait
-                  ? (MediaQuery.of(context).size.height -
-                  appBar.preferredSize.height -
-                  MediaQuery.of(context).padding.top -
-                  MediaQuery.of(context).size.height * 0.01) *
-                  0.3
-                  : (MediaQuery.of(context).size.height -
-                  appBar.preferredSize.height -
-                  MediaQuery.of(context).padding.top -
-                  MediaQuery.of(context).size.height * 0.07) *
-                  0.5,
-              alignment: Alignment.center,
-
+            DrawerHeader(
               child: Image.asset(
                 'assets/images/form.png',
-                width: double.infinity,
                 fit: BoxFit.fill,
               ),
             ),
             Container(
               height: MediaQuery.of(context).orientation == Orientation.portrait
                   ? (MediaQuery.of(context).size.height -
-                  appBar.preferredSize.height -
-                  MediaQuery.of(context).padding.top -
-                  MediaQuery.of(context).size.height * 0.01) *
-                  0.82
+                          appBar.preferredSize.height -
+                          MediaQuery.of(context).padding.top -
+                          MediaQuery.of(context).size.height * 0.01) *
+                      0.82
                   : (MediaQuery.of(context).size.height -
-                  appBar.preferredSize.height -
-                  MediaQuery.of(context).padding.top -
-                  MediaQuery.of(context).size.height * 0.07) *
-                  0.9,
+                          appBar.preferredSize.height -
+                          MediaQuery.of(context).padding.top -
+                          MediaQuery.of(context).size.height * 0.07) *
+                      0.9,
               child: ListView(
                 physics: BouncingScrollPhysics(),
                 children: <Widget>[
                   InkWell(
-                    onTap: ()=>Navigator.of(context).pushReplacementNamed(Home.routeName),
+                    onTap: () => Navigator.of(context)
+                        .pushReplacementNamed(Home.routeName),
                     child: ListTile(
                       leading: Icon(
                         Icons.movie,
@@ -68,10 +54,11 @@ class AppDrawer extends StatelessWidget {
                       ),
                     ),
                   ),
-                       Divider(),
+                  Divider(),
                   InkWell(
-                   onTap: ()=>Navigator.of(context).pushReplacementNamed(Upload.routeName),
-                     child: ListTile(
+                    onTap: () => Navigator.of(context)
+                        .pushReplacementNamed(Upload.routeName),
+                    child: ListTile(
                       leading: Icon(
                         Icons.info_outline,
                         color: Colors.white,
@@ -82,10 +69,10 @@ class AppDrawer extends StatelessWidget {
                       ),
                     ),
                   ),
-             
                   Divider(),
                   InkWell(
-                    onTap: ()=>Navigator.of(context).pushReplacementNamed(Resume.routeName),
+                    onTap: () => Navigator.of(context)
+                        .pushReplacementNamed(Resume.routeName),
                     child: ListTile(
                       leading: Icon(
                         Icons.info_outline,
@@ -97,10 +84,11 @@ class AppDrawer extends StatelessWidget {
                       ),
                     ),
                   ),
-                       Divider(),
+                  Divider(),
                   InkWell(
-                   onTap: ()=>Navigator.of(context).pushReplacementNamed(Summarize.routeName),
-                     child: ListTile(
+                    onTap: () => Navigator.of(context)
+                        .pushReplacementNamed(Summarize.routeName),
+                    child: ListTile(
                       leading: Icon(
                         Icons.info_outline,
                         color: Colors.white,
@@ -113,8 +101,9 @@ class AppDrawer extends StatelessWidget {
                   ),
                   Divider(),
                   InkWell(
-                onTap: ()=>Navigator.of(context).pushReplacementNamed(Feedbackk.routeName),
-                        child: ListTile(
+                    onTap: () => Navigator.of(context)
+                        .pushReplacementNamed(Feedbackk.routeName),
+                    child: ListTile(
                       leading: Icon(
                         Icons.info_outline,
                         color: Colors.white,
@@ -138,7 +127,8 @@ class AppDrawer extends StatelessWidget {
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ),
-                  ), Divider(),
+                  ),
+                  Divider(),
                   InkWell(
                     onTap: null,
                     child: ListTile(
@@ -152,7 +142,7 @@ class AppDrawer extends StatelessWidget {
                       ),
                     ),
                   ),
-                       Divider(),
+                  Divider(),
                   InkWell(
                     onTap: null,
                     child: ListTile(
@@ -166,12 +156,93 @@ class AppDrawer extends StatelessWidget {
                       ),
                     ),
                   ),
-             
-             
-             
                 ],
               ),
             )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MyAppDrawer extends StatelessWidget {
+
+  MyAppDrawer();
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Color.fromRGBO(143, 148, 251, 1), Color.fromRGBO(160, 148, 251, 1)],
+        )),
+        child: ListView(
+          physics: BouncingScrollPhysics(),
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+                child: Center(
+              child: Column(
+                children: <Widget>[
+                  CircleAvatar(
+                    radius: 55,
+                    backgroundImage: AssetImage('assets/images/me.png'),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Text("Mohammed Mehdi",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ))
+                ],
+              ),
+            )),
+            ListTile(
+              leading: Icon(Icons.home, color: Colors.white,),
+              onTap: () => Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => Home())),
+                title: Text(
+              "Home",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            )),
+            ListTile(
+              leading: Icon(Icons.file_upload, color: Colors.white,),
+              onTap: (){
+                Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => Upload()));
+              },
+                title: Text(
+              "Upload",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            )),
+            ListTile(
+              leading: Icon(Icons.book, color: Colors.white,),
+                title: Text(
+              "Summarizer",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            )),
+            ListTile(
+              leading: Icon(Icons.exit_to_app, color: Colors.white,),
+              onTap: (){
+                Navigator.of(context).pushReplacementNamed(Login.routeName);
+              },
+                title: Text(
+              "Logout",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            )),
           ],
         ),
       ),

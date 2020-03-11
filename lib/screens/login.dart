@@ -3,6 +3,7 @@ import '../screens/signup.dart';
 import '../Animation/FadeAnimation.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../screens/home.dart';
+import 'upload.dart';
 
 
 /*void load(bool logged) async {
