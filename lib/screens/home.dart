@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:terna_app/screens/settings.dart';
 import '../screens/upload.dart';
 import '../widgets/app_drawer.dart';
 
@@ -34,7 +35,9 @@ class _HomeState extends State<Home> {
         color: Colors.white,
       ),
       actions: <Widget>[
-        IconButton(icon: Icon(Icons.settings), color: Colors.white, onPressed: (){})
+        IconButton(icon: Icon(Icons.settings), color: Colors.white, onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> SettingsPage()));
+        })
       ],
       backgroundColor: Colors.transparent,
       elevation: 0.0,
@@ -48,28 +51,32 @@ class _HomeState extends State<Home> {
     Widget homeCard(String imageurl, String text) {
       return Padding(
         padding: const EdgeInsets.all(13.0),
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          elevation: 3.0,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      CircleAvatar(
-                        backgroundImage: AssetImage(imageurl),
-                        radius: 50,
-                      ),
-                      SizedBox(height: 10.0,),
-                      Text(
-                        text,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(                      
-                          color: Colors.black
+        child: GestureDetector(
+          onTap: () => Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Upload())),
+                  child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+            elevation: 3.0,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        CircleAvatar(
+                          backgroundImage: AssetImage(imageurl),
+                          radius: 50,
                         ),
-                      )
-                    ],
-                  ),
+                        SizedBox(height: 10.0,),
+                        Text(
+                          text,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(                      
+                            color: Colors.black
+                          ),
+                        )
+                      ],
+                    ),
+          ),
         ),
       );
     }
@@ -99,7 +106,7 @@ class _HomeState extends State<Home> {
           width: double.infinity,
           decoration:new BoxDecoration(
             image: new DecorationImage(
-              image: new AssetImage("assets/images/homebg.jpg"),
+              image: new AssetImage("assets/images/homebg.png"),
               fit: BoxFit.cover,
             ),
           ),

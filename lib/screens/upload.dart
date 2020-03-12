@@ -47,7 +47,7 @@ class __UploadState extends State<Upload> {
         color: Colors.white,
       ),
       actions: <Widget>[
-        IconButton(icon: Icon(Icons.settings), onPressed: (){})
+        IconButton(icon: Icon(Icons.settings), color: Colors.white, onPressed: (){})
       ],
       backgroundColor: Color.fromRGBO(143, 148, 251, 1),
     );
@@ -85,58 +85,55 @@ class __UploadState extends State<Upload> {
       key: _scaffoldKey,
       drawer: MyAppDrawer(),
       appBar: appBar(_scaffoldKey),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 8.0),
-        child: Column(
-          mainAxisAlignment: _storedImage != null ? MainAxisAlignment.start : MainAxisAlignment.center,
-          children: <Widget>[
-            Center(
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.9,
-                height: _storedImage != null? MediaQuery.of(context).size.height * 0.5 : MediaQuery.of(context).size.height * 0.2,
-                child: _storedImage != null
-                    ? Image.file(
-                        _storedImage,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                      )
-                    : Image.asset('assets/images/uploadlogo.png'),
-                alignment: Alignment.center,
+      body: Column(
+        mainAxisAlignment: _storedImage != null ? MainAxisAlignment.start : MainAxisAlignment.center,
+        children: <Widget>[
+          Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: _storedImage != null? MediaQuery.of(context).size.height * 0.5 : MediaQuery.of(context).size.height * 0.5,
+              child: _storedImage != null
+                  ? Image.file(
+                      _storedImage,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                    )
+                  : Image.asset('assets/images/uploadlogo.jpg'),
+              alignment: Alignment.center,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+            margin: EdgeInsets.all(10),
+            child: RaisedButton(
+              shape: StadiumBorder(),
+              color: Color.fromRGBO(143, 148, 251, 1),
+              onPressed: _takePicture,
+              child: Text(
+                "Take from Camera",
+                style: TextStyle(color: Colors.white),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-              margin: EdgeInsets.all(10),
-              child: RaisedButton(
-                shape: StadiumBorder(),
-                color: Color.fromRGBO(143, 148, 251, 1),
-                onPressed: _takePicture,
-                child: Text(
-                  "Take from Camera",
-                  style: TextStyle(color: Colors.white),
-                ),
+          ),
+          Text("or"),
+          Container(
+            margin: EdgeInsets.all(10),
+            child: RaisedButton(
+              shape: StadiumBorder(),
+              color: Color.fromRGBO(143, 148, 251, 1),
+              onPressed: _selectPicture,
+              child: Text(
+                "Pick from Gallery",
+                style: TextStyle(color: Colors.white),
               ),
             ),
-            Text("or"),
-            Container(
-              margin: EdgeInsets.all(10),
-              child: RaisedButton(
-                shape: StadiumBorder(),
-                color: Color.fromRGBO(143, 148, 251, 1),
-                onPressed: _selectPicture,
-                child: Text(
-                  "Pick from Gallery",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
-              ],
-            ),
-            doneButton(),
-          ],
-        ),
+          ),
+            ],
+          ),
+          doneButton(),
+        ],
       ),
     );
   }
