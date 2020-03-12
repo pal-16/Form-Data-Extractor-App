@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../screens/home.dart';
 import '../widgets/app_drawer.dart';
 import '../screens/result.dart';
+import 'package:dio/dio.dart';
 
 class Upload extends StatefulWidget {
   static const routeName = '/upload';
@@ -14,6 +15,7 @@ class Upload extends StatefulWidget {
 
 class __UploadState extends State<Upload> {
   File _storedImage;
+  final String flaskEndPoint = 'http://192.168.0.103:5000/';
   Future<void> _takePicture() async {
     final imageFile = await ImagePicker.pickImage(
       source: ImageSource.camera,
@@ -31,6 +33,17 @@ class __UploadState extends State<Upload> {
     setState(() {
       _storedImage = imageFile;
     });
+  }
+
+  void _upload() async{
+    Response response;
+    Dio dio = new Dio();
+    FormData formData = FormData.fromMap({
+      "name": "wendux",
+      "age": 25,
+      "file": await MultipartFile.fromFile(_storedImage.path, filename: "upload.jpg")
+    });
+    response = await dio.post(flaskEndPoint, data: formData);
   }
 
   Widget appBar(scaffoldkey) {
@@ -61,7 +74,8 @@ class __UploadState extends State<Upload> {
             child: MaterialButton(
               textColor: Colors.black,
               onPressed: () {
-                Navigator.push(
+                _upload();
+                Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (context) => Result()));
               },
               child: Text(

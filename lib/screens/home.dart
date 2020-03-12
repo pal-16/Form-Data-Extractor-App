@@ -48,7 +48,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final GlobalKey _scaffoldKey = new GlobalKey();
 
-    Widget homeCard(String imageurl, String text) {
+    Widget homeCard(String imageUrl, String text) {
       return Padding(
         padding: const EdgeInsets.all(13.0),
         child: GestureDetector(
@@ -63,15 +63,17 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         CircleAvatar(
-                          backgroundImage: AssetImage(imageurl),
+                          backgroundImage: AssetImage(imageUrl),
                           radius: 50,
                         ),
                         SizedBox(height: 10.0,),
-                        Text(
-                          text,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(                      
-                            color: Colors.black
+                        Flexible(
+                          child: Text(
+                            text,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black
+                            ),
                           ),
                         )
                       ],
@@ -93,7 +95,7 @@ class _HomeState extends State<Home> {
             homeCard("assets/images/1.png", "Scan Hardcopy Form"),
             homeCard("assets/images/2.png", "Generate Summary"),
             homeCard("assets/images/3.png", "Evaluate your Resume"),
-            homeCard("assets/images/4.png", "Evaluate Feedback \nForms"),
+            homeCard("assets/images/4.png", "Evaluate Feedback Forms"),
           ],
         ),
       );

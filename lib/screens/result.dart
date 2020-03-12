@@ -54,9 +54,9 @@ class _ResultState extends State<Result> {
                 child: RaisedButton(
                   color: Color.fromRGBO(143, 148, 251, 1),
                   onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Upload()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Upload()));
         },
-        child: Text('Check Analysis'),
+        child: Text('Done'),
                 ),
               )
             ],
