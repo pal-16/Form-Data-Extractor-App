@@ -15,7 +15,7 @@ class Upload extends StatefulWidget {
 
 class __UploadState extends State<Upload> {
   File _storedImage;
-  final String flaskEndPoint = 'http://192.168.43.208:5000/';
+  final String flaskEndPoint = 'http://9f5713f0.ngrok.io/'; //'http://192.168.43.208:5000/';
   Future<void> _takePicture() async {
     final imageFile = await ImagePicker.pickImage(
       source: ImageSource.camera,
