@@ -15,7 +15,7 @@ class Upload extends StatefulWidget {
 
 class __UploadState extends State<Upload> {
   File _storedImage;
-  final String flaskEndPoint = 'http://192.168.0.103:5000/';
+  final String flaskEndPoint = 'http://192.168.43.208:5000/';
   Future<void> _takePicture() async {
     final imageFile = await ImagePicker.pickImage(
       source: ImageSource.camera,
@@ -39,11 +39,10 @@ class __UploadState extends State<Upload> {
     Response response;
     Dio dio = new Dio();
     FormData formData = FormData.fromMap({
-      "name": "wendux",
-      "age": 25,
       "file": await MultipartFile.fromFile(_storedImage.path, filename: "upload.jpg")
     });
     response = await dio.post(flaskEndPoint, data: formData);
+    print(response.data);
   }
 
   Widget appBar(scaffoldkey) {
