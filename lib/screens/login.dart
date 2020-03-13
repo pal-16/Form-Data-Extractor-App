@@ -4,7 +4,8 @@ import '../Animation/FadeAnimation.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../screens/home.dart';
 import 'upload.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 /*void load(bool logged) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -12,24 +13,28 @@ import 'upload.dart';
 }*/
 
 class Login extends StatefulWidget {
-   static const routeName = '/login';
+  static const routeName = '/login';
 
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-  String username, password;
-  final TextEditingController _usernameController = new TextEditingController();
+  String email, name, password, type;
+  int b = 0;
+  final TextEditingController _nameController = new TextEditingController();
   final TextEditingController _passwordController = new TextEditingController();
+  final TextEditingController _emailController = new TextEditingController();
 
   void _saveForm() async {
     print("done");
-    username = _usernameController.text;
+    email = _emailController.text;
+    name = _nameController.text;
+
     password = _passwordController.text;
 
-    if (!username.contains("@")) {
-      _usernameController.text = "";
+    if (!email.contains("@")) {
+      _emailController.text = "";
       _passwordController.text = "";
       print("email incorrect");
       showDialog(
@@ -53,7 +58,7 @@ class _LoginState extends State<Login> {
         ),
       );
     } else if (password.length < 8) {
-      _usernameController.text = "";
+      _emailController.text = "";
       _passwordController.text = "";
       print("password should be minimum 8 chars");
       showDialog(
@@ -77,31 +82,32 @@ class _LoginState extends State<Login> {
         ),
       );
     } else {
-      if (_usernameController.text == 'admin@gmail.com' &&
-          _passwordController.text == '12345678') {
-        Navigator.of(context).pushReplacementNamed(Home.routeName);
-      } else {
-        showDialog(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: Text(
-              "Incorrect",
-              style: TextStyle(fontFamily: 'Aleo', fontWeight: FontWeight.bold),
-            ),
-            content: Text("Incorrect Credentials"),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("Okay",
-                    style: TextStyle(
-                        fontFamily: 'Aleo', fontWeight: FontWeight.bold)),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          ),
-        );
-      }
+      setState(() {
+        if (b == 2) {
+          type = 'company';
+        } else {
+          type = 'user';
+        }
+      });
+
+      final String url = "http://9f5713f0.nrok.io/login";
+      final response = await http.post(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        body: json.encode({
+          'name': _nameController.text,
+          'email': _emailController.text,
+          'password': _passwordController.text,
+          'type': type,
+        }),
+      );
+      print("hi");
+      print(response.body);
+
+      Navigator.of(context).pushReplacementNamed(Home.routeName);
     }
   }
 
@@ -206,10 +212,10 @@ class _LoginState extends State<Login> {
                                           bottom: BorderSide(
                                               color: Colors.grey[100]))),
                                   child: TextField(
-                                    controller: _usernameController,
+                                    controller: _emailController,
                                     decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: "Email or Phone number",
+                                        hintText: "Email",
                                         hintStyle:
                                             TextStyle(color: Colors.grey[400])),
                                   ),
@@ -229,6 +235,38 @@ class _LoginState extends State<Login> {
                               ],
                             ),
                           )),
+                      Container(
+                        child: Column(
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Text('Company'),
+                                Radio(
+                                  activeColor: Color(0xff8f94fb),
+                                  value: 2,
+                                  groupValue: b,
+                                  onChanged: (v) {
+                                    setState(() {
+                                      b = v;
+                                    });
+                                  },
+                                ),
+                                Text('User'),
+                                Radio(
+                                  activeColor: Color(0xff8f94fb),
+                                  value: 3,
+                                  groupValue: b,
+                                  onChanged: (v) {
+                                    setState(() {
+                                      b = v;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                       SizedBox(
                         height: 30,
                       ),
@@ -257,23 +295,22 @@ class _LoginState extends State<Login> {
                       SizedBox(
                         height: 20,
                       ),
-                       Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              InkWell(
-                                child: Text(
-                                  "Don't have an account? Register",
-                                  style: TextStyle(
-                                      color: Colors.blue,
-                                      fontFamily: "Aleo",
-                                      fontSize:
-                                          (16)),
-                                ),
-                                onTap: () => Navigator.of(context)
-                                    .pushNamed(Signup.routeName),
-                              )
-                            ],
-                          ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          InkWell(
+                            child: Text(
+                              "Don't have an account? Register",
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontFamily: "Aleo",
+                                  fontSize: (16)),
+                            ),
+                            onTap: () => Navigator.of(context)
+                                .pushNamed(Signup.routeName),
+                          )
+                        ],
+                      ),
                     ],
                   ),
                 )

@@ -3,6 +3,9 @@ import '../screens/home.dart';
 import '../screens/login.dart';
 import '../Animation/FadeAnimation.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 
 class Signup extends StatefulWidget {
   static const routeName = '/signup';
@@ -12,17 +15,21 @@ class Signup extends StatefulWidget {
 }
 
 class _Signup extends State<Signup> {
-  String username, password;
-  final TextEditingController _usernameController = new TextEditingController();
+ String email,name, password, type;
+  int b = 0;
+  final TextEditingController _nameController = new TextEditingController();
   final TextEditingController _passwordController = new TextEditingController();
-
-  void _saveForm() async {
+  final TextEditingController _emailController = new TextEditingController();
+  
+   void _saveForm() async {
     print("done");
-    username = _usernameController.text;
+    email = _emailController.text;
+    name = _nameController.text;
+    
     password = _passwordController.text;
 
-    if (!username.contains("@")) {
-      _usernameController.text = "";
+    if (!email.contains("@")) {
+      _emailController.text = "";
       _passwordController.text = "";
       print("email incorrect");
       showDialog(
@@ -46,7 +53,7 @@ class _Signup extends State<Signup> {
         ),
       );
     } else if (password.length < 8) {
-      _usernameController.text = "";
+      _passwordController.text = "";
       _passwordController.text = "";
       print("password should be minimum 8 chars");
       showDialog(
@@ -70,210 +77,259 @@ class _Signup extends State<Signup> {
         ),
       );
     } else {
-      if (_usernameController.text == 'admin' &&
-          _passwordController.text == '123') {
-        Navigator.of(context).pushReplacementNamed(Home.routeName);
-      } else {
-        showDialog(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: Text(
-              "Incorrect",
-              style: TextStyle(fontFamily: 'Aleo', fontWeight: FontWeight.bold),
-            ),
-            content: Text("Incorrect Credentials"),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("Okay",
-                    style: TextStyle(
-                        fontFamily: 'Aleo', fontWeight: FontWeight.bold)),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          ),
-        );
-      }
+      setState(() {
+        if (b == 2) {
+          type = 'company';
+        } else {
+          type = 'user';
+        }
+      });
+
+      final String url = "http://9f5713f0.nrok.io/register";
+      final response = await http.post(
+        url,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        body: json.encode({
+          'name':_nameController.text,
+          'email': _emailController.text,
+          'password': _passwordController.text,
+          'type':type,
+        }),
+      );
+      print("hi");
+      print(response.body);
+
+      Navigator.of(context).pushReplacementNamed(Home.routeName);
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  height: 400,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/images/background.png'),
-                          fit: BoxFit.fill)),
-                  child: Stack(
-                    children: <Widget>[
-                      Positioned(
-                        left: 30,
-                        width: 80,
-                        height: 200,
-                        child: FadeAnimation(
-                            1,
-                            Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/light-1.png'))),
-                            )),
-                      ),
-                      Positioned(
-                        left: 140,
-                        width: 80,
-                        height: 150,
-                        child: FadeAnimation(
-                            1.3,
-                            Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/light-2.png'))),
-                            )),
-                      ),
-                      Positioned(
-                        right: 40,
-                        top: 40,
-                        width: 80,
-                        height: 150,
-                        child: FadeAnimation(
-                            1.5,
-                            Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/clock.png'))),
-                            )),
-                      ),
-                      Positioned(
-                        child: FadeAnimation(
-                            1.6,
-                            Container(
-                              margin: EdgeInsets.only(top: 50),
-                              child: Center(
-                                child: Text(
-                                  "SignUp",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 40,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            )),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(30.0),
-                  child: Column(
-                    children: <Widget>[
-                      FadeAnimation(
-                          1.8,
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              Container(
+                height: 400,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/images/background.png'),
+                        fit: BoxFit.fill)),
+                child: Stack(
+                  children: <Widget>[
+                    Positioned(
+                      left: 30,
+                      width: 80,
+                      height: 200,
+                      child: FadeAnimation(
+                          1,
                           Container(
-                            padding: EdgeInsets.all(5),
                             decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Color.fromRGBO(143, 148, 251, .2),
-                                      blurRadius: 20.0,
-                                      offset: Offset(0, 10))
-                                ]),
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  padding: EdgeInsets.all(8.0),
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                              color: Colors.grey[100]))),
-                                  child: TextField(
-                                    controller: _usernameController,
-                                    decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: "Email or Phone number",
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey[400])),
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: TextField(
-                                    obscureText: true,
-                                    controller: _passwordController,
-                                    decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: "Password",
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey[400])),
-                                  ),
-                                )
-                              ],
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        'assets/images/light-1.png'))),
+                          )),
+                    ),
+                    Positioned(
+                      left: 140,
+                      width: 80,
+                      height: 150,
+                      child: FadeAnimation(
+                          1.3,
+                          Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        'assets/images/light-2.png'))),
+                          )),
+                    ),
+                    Positioned(
+                      right: 40,
+                      top: 40,
+                      width: 80,
+                      height: 150,
+                      child: FadeAnimation(
+                          1.5,
+                          Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image:
+                                        AssetImage('assets/images/clock.png'))),
+                          )),
+                    ),
+                    Positioned(
+                      child: FadeAnimation(
+                          1.6,
+                          Container(
+                            margin: EdgeInsets.only(top: 50),
+                            child: Center(
+                              child: Text(
+                                "SignUp",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 40,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           )),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      InkWell(
-                        onTap: _saveForm,
-                        child: FadeAnimation(
-                            2,
-                            Container(
-                              height: 50,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  gradient: LinearGradient(colors: [
-                                    Color.fromRGBO(143, 148, 251, 1),
-                                    Color.fromRGBO(143, 148, 251, .6),
-                                  ])),
-                              child: Center(
-                                child: Text(
-                                  "Sign Up",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(30.0),
+                child: Column(
+                  children: <Widget>[
+                    FadeAnimation(
+                        1.8,
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color.fromRGBO(143, 148, 251, .2),
+                                    blurRadius: 20.0,
+                                    offset: Offset(0, 10))
+                              ]),
+                          child: Column(
+                            children: <Widget>[
+                                  Container(
+                                padding: EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            color: Colors.grey[100]))),
+                                child: TextField(
+                                  controller: _nameController,
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: "Name of company/user",
+                                      hintStyle:
+                                          TextStyle(color: Colors.grey[400])),
                                 ),
                               ),
-                            )),
-                      ),
-                      SizedBox(
-                        height:20,
-                      ),
-                       Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              InkWell(
-                                child: Text(
-                                  "Already Have an account? Login",
-                                  style: TextStyle(
-                                      color: Colors.blue,
-                                      fontFamily: "Aleo",
-                                      fontSize:
-                                        (16)),
+                          
+                              Container(
+                                padding: EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            color: Colors.grey[100]))),
+                                child: TextField(
+                                  controller: _emailController,
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: "Email ",
+                                      hintStyle:
+                                          TextStyle(color: Colors.grey[400])),
                                 ),
-                                onTap: () => Navigator.of(context)
-                                    .pushNamed(Login.routeName),
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(8.0),
+                                child: TextField(
+                                  obscureText: true,
+                                  controller: _passwordController,
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: "Password",
+                                      hintStyle:
+                                          TextStyle(color: Colors.grey[400])),
+                                ),
                               )
                             ],
                           ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+                        )),
+                             Container(
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Text('Company'),
+                                      Radio(
+                                           activeColor: Color(0xff8f94fb),
+                                      
+                                        value: 2,
+                                        groupValue: b,
+                                        onChanged: (v) {
+                                          setState(() {
+                                            b = v;
+                                          });
+                                        },
+                                      ),
+                                      Text('User'),
+                                       Radio(
+                                         activeColor: Color(0xff8f94fb),
+                                        value: 3,
+                                        groupValue: b,
+                                        onChanged: (v) {
+                                          setState(() {
+                                            b = v;
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                       
+                    SizedBox(
+                      height: 30,
+                    ),
+                    InkWell(
+                      onTap: _saveForm,
+                      child: FadeAnimation(
+                          2,
+                          Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                gradient: LinearGradient(colors: [
+                                  Color.fromRGBO(143, 148, 251, 1),
+                                  Color.fromRGBO(143, 148, 251, .6),
+                                ])),
+                            child: Center(
+                              child: Text(
+                                "Sign Up",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          )),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        InkWell(
+                          child: Text(
+                            "Already Have an account? Login",
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontFamily: "Aleo",
+                                fontSize: (16)),
+                          ),
+                          onTap: () =>
+                              Navigator.of(context).pushNamed(Login.routeName),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            ],
           ),
         ),
+      ),
     );
-    }
+  }
 }
