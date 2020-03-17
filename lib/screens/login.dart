@@ -33,31 +33,7 @@ class _LoginState extends State<Login> {
 
     password = _passwordController.text;
 
-    if (!email.contains("@")) {
-      _emailController.text = "";
-      _passwordController.text = "";
-      print("email incorrect");
-      showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          title: Text(
-            "Invalid Email format",
-            style: TextStyle(fontFamily: 'Aleo', fontWeight: FontWeight.bold),
-          ),
-          content: Text("Email does not contain @"),
-          actions: <Widget>[
-            FlatButton(
-              child: Text("Okay",
-                  style: TextStyle(
-                      fontFamily: 'Aleo', fontWeight: FontWeight.bold)),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        ),
-      );
-    } else if (password.length < 8) {
+    if (password.length < 8) {
       _emailController.text = "";
       _passwordController.text = "";
       print("password should be minimum 8 chars");
@@ -90,7 +66,7 @@ class _LoginState extends State<Login> {
         }
       });
 
-      final String url = "http://9f5713f0.nrok.io/login";
+      final String url = "http://6a160c04.ngrok.io/login";
       final response = await http.post(
         url,
         headers: {
@@ -99,9 +75,7 @@ class _LoginState extends State<Login> {
         },
         body: json.encode({
           'name': _nameController.text,
-          'email': _emailController.text,
           'password': _passwordController.text,
-          'type': type,
         }),
       );
       print("hi");
@@ -212,10 +186,10 @@ class _LoginState extends State<Login> {
                                           bottom: BorderSide(
                                               color: Colors.grey[100]))),
                                   child: TextField(
-                                    controller: _emailController,
+                                    controller: _nameController,
                                     decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: "Email",
+                                        hintText: "Username",
                                         hintStyle:
                                             TextStyle(color: Colors.grey[400])),
                                   ),
