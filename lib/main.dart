@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+//import 'package:flutter/services.dart';
 import 'screens/summarize.dart';
 import 'screens/login.dart';
 import 'screens/signup.dart';
@@ -29,7 +29,7 @@ class _TernaAppState extends State<TernaApp> {
       title: "Terna App",
       theme: ThemeData(
         primaryColor: Color.fromRGBO(191, 229, 255, 1),
-        accentColor: Colors.greenAccent,
+        accentColor: Color(0xff8f94fb),
         backgroundColor: Colors.white,
         bottomAppBarColor: Colors.white,
       ),

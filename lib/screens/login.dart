@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../screens/signup.dart';
 import '../Animation/FadeAnimation.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+//import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../screens/home.dart';
-import 'upload.dart';
+//import 'upload.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -27,7 +27,6 @@ class _LoginState extends State<Login> {
   final TextEditingController _emailController = new TextEditingController();
 
   void _saveForm() async {
-    print("done");
     email = _emailController.text;
     name = _nameController.text;
 
@@ -66,7 +65,8 @@ class _LoginState extends State<Login> {
         }
       });
 
-      final String url = "http://6a160c04.ngrok.io/login";
+
+      /*final String url = "http://6a160c04.ngrok.io/login";
       final response = await http.post(
         url,
         headers: {
@@ -78,9 +78,9 @@ class _LoginState extends State<Login> {
           'password': _passwordController.text,
         }),
       );
-      print("hi");
-      print(response.body);
 
+
+      print(response.body);*/
       Navigator.of(context).pushReplacementNamed(Home.routeName);
     }
   }
