@@ -1,15 +1,11 @@
-import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:terna_app/screens/settings.dart';
-import 'package:terna_app/screens/voiceform.dart';
-import '../screens/upload.dart';
-import '../widgets/app_drawer.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:terna_app/screens/voiceform.dart';
+
 import '../screens/voiceform.dart';
+import '../widgets/app_drawer.dart';
 
 /*class Companyv extends StatelessWidget {
   static const routeName = '/home';
@@ -49,6 +45,7 @@ class _CompanyvState extends State {
     'Income': false,
     'Nationality': false,
   };
+
   Widget appBar(scaffoldkey) {
     return AppBar(
       title: Text(
@@ -71,7 +68,8 @@ class _CompanyvState extends State {
   }
 
   var holder = [];
-  saveform() async {
+
+  Future<void> saveForm() async {
     numbers.forEach((key, value) {
       if (!holder.contains(key)) {
         if (value == true) {
@@ -79,31 +77,26 @@ class _CompanyvState extends State {
         }
       }
     });
-    print(holder);
-    print(holder.toList());
-    print(holder.toSet());
-    print(holder.toString());
 
-    final String url = "http://1b77e76a.ngrok.io/voice";
-    final response = await http.post(
-      url,
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: json.encode({'data': holder}),
-    );
+//    final String url = "http://1b77e76a.ngrok.io/voice";
+//    final response = await http.post(
+//      url,
+//      headers: {
+//        "Accept": "application/json",
+//        "Content-Type": "application/json",
+//      },
+//      body: json.encode({'data': holder}),
+//    );
   }
 
   var getholder = [];
+
   getPreview() async {
     final res = await http.get("http://1b77e76a.ngrok.io/getvoice",
         headers: {"Accept": "aplication/json"});
     final jsonData = json.decode(res.body);
     getholder = jsonData['data'];
-    print("=====");
-    print(
-        getholder); // @saif =======> get holder prints ['name','age','salary']
+    print(getholder); // @saif =======> get holder prints ['name','age','salary']
     // print(getholder[0]);
   }
 
@@ -123,8 +116,7 @@ class _CompanyvState extends State {
                 style:
                     TextStyle(fontFamily: 'Aleo', fontWeight: FontWeight.bold)),
             onPressed: () {
-              //   print("=========================================");
-              // print(customController.text);
+              
               if (customController.text != '')
                 holder.add(customController.text);
               Navigator.of(context).pop();
@@ -166,7 +158,7 @@ class _CompanyvState extends State {
               "save form ",
               style: TextStyle(fontSize: 15),
             ),
-            onPressed: saveform,
+            onPressed: saveForm,
             color: Colors.white,
             textColor: Colors.black,
             splashColor: Colors.grey,
@@ -183,28 +175,26 @@ class _CompanyvState extends State {
             splashColor: Colors.grey,
             padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
           ),
-          RaisedButton(
-            child: Text(
-              "Retrieve",
-              style: TextStyle(fontSize: 12),
-            ),
-            onPressed: getPreview,
-            color: Colors.white,
-            textColor: Colors.black,
-            splashColor: Colors.grey,
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-          ),
+//          RaisedButton(
+//            child: Text(
+//              "Retrieve",
+//              style: TextStyle(fontSize: 12),
+//            ),
+//            onPressed: getPreview,
+//            color: Colors.white,
+//            textColor: Colors.black,
+//            splashColor: Colors.grey,
+//            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+//          ),
           RaisedButton(
             child: Text(
               "Generate voice form",
               style: TextStyle(fontSize: 12),
             ),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => VoiceHome(properties: getholder),
-              ),
-            ),
+            onPressed: (){
+              print(holder);
+              Navigator.of(context).pushNamed(VoiceHome.routeName,arguments: {"properties": holder});
+            },
             color: Colors.white,
             textColor: Colors.black,
             splashColor: Colors.grey,

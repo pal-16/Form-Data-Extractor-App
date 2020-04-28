@@ -42,9 +42,7 @@ class _TernaAppState extends State<TernaApp> {
         Upload.routeName: (ctx) => Upload(),
         Result.routeName: (ctx) => Result(),
         Companyv.routeName: (ctx) => Companyv(),
-        VoiceHome.routeName: (ctx) => VoiceHome(
-              properties: [],
-            ),
+        VoiceHome.routeName: (ctx) => VoiceHome(),
       },
       home: Companyv(),
     );

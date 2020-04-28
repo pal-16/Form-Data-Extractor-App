@@ -65,9 +65,9 @@ class _LoginState extends State<Login> {
         }
       });
 
-<<<<<<< HEAD
+
       final String url = "http://1b77e76a.ngrok.io/login";
-=======
+
 
       /*final String url = "http://6a160c04.ngrok.io/login";
 >>>>>>> 4b612c84f73189b419f1ac9608bd26930c4ac64d
