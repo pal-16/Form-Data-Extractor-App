@@ -1,6 +1,6 @@
-import 'dart:async';
+//import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+//import 'package:flutter/services.dart';
 import 'package:terna_app/screens/settings.dart';
 import '../screens/upload.dart';
 import '../widgets/app_drawer.dart';
@@ -48,12 +48,12 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final GlobalKey _scaffoldKey = new GlobalKey();
 
-    Widget homeCard(String imageUrl, String text) {
+    Widget homeCard(String imageUrl, String text, String action) {
       return Padding(
         padding: const EdgeInsets.all(13.0),
         child: GestureDetector(
           onTap: () => Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Upload())),
+                          MaterialPageRoute(builder: (context) => Upload(action))),
                   child: Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0),
@@ -92,10 +92,10 @@ class _HomeState extends State<Home> {
           crossAxisCount: 2,
           // Generate 100 widgets that display their index in the List.
           children: [
-            homeCard("assets/images/1.png", "Scan Hardcopy Form"),
-            homeCard("assets/images/2.png", "Generate Summary"),
-            homeCard("assets/images/3.png", "Evaluate your Resume"),
-            homeCard("assets/images/4.png", "Evaluate Feedback Forms"),
+            homeCard("assets/images/1.png", "Scan Hardcopy Form", "registration"),
+            homeCard("assets/images/2.png", "Generate Summary", "summarize"),
+            homeCard("assets/images/3.png", "Evaluate your Resume", "resume"),
+            homeCard("assets/images/4.png", "Evaluate Feedback Forms", "feedback"),
           ],
         ),
       );
