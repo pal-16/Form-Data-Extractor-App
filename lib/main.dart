@@ -8,20 +8,19 @@ import 'screens/resume.dart';
 import 'screens/upload.dart';
 import 'screens/feedbackk.dart';
 import 'screens/result.dart';
-
+import 'screens/companyv.dart';
+import 'screens/voiceform.dart';
 
 void main() {
   runApp(TernaApp());
 }
 
-class TernaApp extends StatefulWidget{
-
+class TernaApp extends StatefulWidget {
   @override
   _TernaAppState createState() => _TernaAppState();
 }
 
 class _TernaAppState extends State<TernaApp> {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,20 +32,21 @@ class _TernaAppState extends State<TernaApp> {
         backgroundColor: Colors.white,
         bottomAppBarColor: Colors.white,
       ),
-       routes: {
-        Home.routeName:(ctx) => Home(),
-        Signup.routeName:(ctx) =>Signup(),
-        Login.routeName:(ctx) =>Login(),
-        Resume.routeName:(ctx) =>Resume(),
-        Feedbackk.routeName:(ctx) =>Feedbackk(),
-        Summarize.routeName:(ctx) =>Summarize(),
-        Upload.routeName:(ctx) =>Upload(),
-       Result.routeName:(ctx) =>Result(),
-      
-      
-
-    },
-   home:Login() ,
+      routes: {
+        Home.routeName: (ctx) => Home(),
+        Signup.routeName: (ctx) => Signup(),
+        Login.routeName: (ctx) => Login(),
+        Resume.routeName: (ctx) => Resume(),
+        Feedbackk.routeName: (ctx) => Feedbackk(),
+        Summarize.routeName: (ctx) => Summarize(),
+        Upload.routeName: (ctx) => Upload(),
+        Result.routeName: (ctx) => Result(),
+        Companyv.routeName: (ctx) => Companyv(),
+        VoiceHome.routeName: (ctx) => VoiceHome(
+              properties: [],
+            ),
+      },
+      home: Companyv(),
     );
   }
 }

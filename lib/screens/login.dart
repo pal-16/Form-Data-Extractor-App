@@ -66,7 +66,7 @@ class _LoginState extends State<Login> {
         }
       });
 
-      final String url = "http://6a160c04.ngrok.io/login";
+      final String url = "http://1b77e76a.ngrok.io/login";
       final response = await http.post(
         url,
         headers: {
@@ -78,7 +78,6 @@ class _LoginState extends State<Login> {
           'password': _passwordController.text,
         }),
       );
-      print("hi");
       print(response.body);
 
       Navigator.of(context).pushReplacementNamed(Home.routeName);

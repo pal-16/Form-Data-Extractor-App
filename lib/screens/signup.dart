@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-
 class Signup extends StatefulWidget {
   static const routeName = '/signup';
 
@@ -15,17 +14,17 @@ class Signup extends StatefulWidget {
 }
 
 class _Signup extends State<Signup> {
- String email,name, password, type;
+  String email, name, password, type;
   int b = 0;
   final TextEditingController _nameController = new TextEditingController();
   final TextEditingController _passwordController = new TextEditingController();
   final TextEditingController _emailController = new TextEditingController();
-  
-   void _saveForm() async {
+
+  void _saveForm() async {
     print("done");
     email = _emailController.text;
     name = _nameController.text;
-    
+
     password = _passwordController.text;
 
     if (!email.contains("@")) {
@@ -85,7 +84,7 @@ class _Signup extends State<Signup> {
         }
       });
 
-      final String url = " http://6a160c04.ngrok.io/register";
+      final String url = "http://1b77e76a.ngrok.io/register";
       final response = await http.post(
         url,
         headers: {
@@ -93,18 +92,18 @@ class _Signup extends State<Signup> {
           "Content-Type": "application/json",
         },
         body: json.encode({
-          'name':_nameController.text,
+          'name': _nameController.text,
           'email': _emailController.text,
           'password': _passwordController.text,
-          'type':type,
+          'type': type,
         }),
       );
-      print("hi");
       print(response.body);
 
       Navigator.of(context).pushReplacementNamed(Home.routeName);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -199,7 +198,7 @@ class _Signup extends State<Signup> {
                               ]),
                           child: Column(
                             children: <Widget>[
-                                  Container(
+                              Container(
                                 padding: EdgeInsets.all(8.0),
                                 decoration: BoxDecoration(
                                     border: Border(
@@ -214,7 +213,6 @@ class _Signup extends State<Signup> {
                                           TextStyle(color: Colors.grey[400])),
                                 ),
                               ),
-                          
                               Container(
                                 padding: EdgeInsets.all(8.0),
                                 decoration: BoxDecoration(
@@ -245,40 +243,38 @@ class _Signup extends State<Signup> {
                             ],
                           ),
                         )),
-                             Container(
-                              child: Column(
-                                children: <Widget>[
-                                  Row(
-                                    children: <Widget>[
-                                      Text('Company'),
-                                      Radio(
-                                           activeColor: Color(0xff8f94fb),
-                                      
-                                        value: 2,
-                                        groupValue: b,
-                                        onChanged: (v) {
-                                          setState(() {
-                                            b = v;
-                                          });
-                                        },
-                                      ),
-                                      Text('User'),
-                                       Radio(
-                                         activeColor: Color(0xff8f94fb),
-                                        value: 3,
-                                        groupValue: b,
-                                        onChanged: (v) {
-                                          setState(() {
-                                            b = v;
-                                          });
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                    Container(
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Text('Company'),
+                              Radio(
+                                activeColor: Color(0xff8f94fb),
+                                value: 2,
+                                groupValue: b,
+                                onChanged: (v) {
+                                  setState(() {
+                                    b = v;
+                                  });
+                                },
                               ),
-                            ),
-                       
+                              Text('User'),
+                              Radio(
+                                activeColor: Color(0xff8f94fb),
+                                value: 3,
+                                groupValue: b,
+                                onChanged: (v) {
+                                  setState(() {
+                                    b = v;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                     SizedBox(
                       height: 30,
                     ),

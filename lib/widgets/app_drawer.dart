@@ -5,6 +5,7 @@ import '../screens/upload.dart';
 import '../screens/summarize.dart';
 import '../screens/resume.dart';
 import '../screens/login.dart';
+import '../screens/companyv.dart';
 
 class AppDrawer extends StatelessWidget {
   final AppBar appBar;
@@ -40,9 +41,25 @@ class AppDrawer extends StatelessWidget {
               child: ListView(
                 physics: BouncingScrollPhysics(),
                 children: <Widget>[
+                     InkWell(
+                    onTap: () => Navigator.of(context)
+                        .pushReplacementNamed(Companyv.routeName),
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.info_outline,
+                        color: Colors.white,
+                      ),
+                      title: Text(
+                        "Create Voice enabled form",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ),
+                  ),
+                    Divider(),
+               
                   InkWell(
                     onTap: () => Navigator.of(context)
-                        .pushReplacementNamed(Home.routeName),
+                        .pushReplacementNamed(Companyv.routeName),
                     child: ListTile(
                       leading: Icon(
                         Icons.movie,
@@ -114,48 +131,8 @@ class AppDrawer extends StatelessWidget {
                       ),
                     ),
                   ),
+                     Divider(),
                   Divider(),
-                  InkWell(
-                    onTap: null,
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.info_outline,
-                        color: Colors.white,
-                      ),
-                      title: Text(
-                        "Share",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    ),
-                  ),
-                  Divider(),
-                  InkWell(
-                    onTap: null,
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.info_outline,
-                        color: Colors.white,
-                      ),
-                      title: Text(
-                        "Settings",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    ),
-                  ),
-                  Divider(),
-                  InkWell(
-                    onTap: null,
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.info_outline,
-                        color: Colors.white,
-                      ),
-                      title: Text(
-                        "Logout",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    ),
-                  ),
                 ],
               ),
             )
