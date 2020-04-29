@@ -77,7 +77,7 @@ class _LoginState extends State<Login> {
       final jsonData = json.decode(response.body);
       User.email = jsonData['email'];
       print(User.email);
-      if (User.email != "") {
+      if (jsonData['logged'] == 1) {
         Navigator.of(context).pushReplacementNamed(Home.routeName);
       } else {
         Navigator.of(context).pushReplacementNamed(Login.routeName);
