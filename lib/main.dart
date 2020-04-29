@@ -44,7 +44,7 @@ class _TernaAppState extends State<TernaApp> {
         Companyv.routeName: (ctx) => Companyv(),
         VoiceHome.routeName: (ctx) => VoiceHome(),
       },
-      home: Companyv(),
+      home: Signup(),
     );
   }
 }

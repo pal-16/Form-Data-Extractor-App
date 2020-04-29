@@ -7,7 +7,7 @@ import '../screens/resume.dart';
 import '../screens/login.dart';
 import '../screens/companyv.dart';
 
-class AppDrawer extends StatelessWidget {
+/*class AppDrawer extends StatelessWidget {
   final AppBar appBar;
 
   AppDrawer(this.appBar);
@@ -41,22 +41,21 @@ class AppDrawer extends StatelessWidget {
               child: ListView(
                 physics: BouncingScrollPhysics(),
                 children: <Widget>[
-                     InkWell(
+                  InkWell(
                     onTap: () => Navigator.of(context)
-                        .pushReplacementNamed(Companyv.routeName),
+                        .pushReplacementNamed(Home.routeName),
                     child: ListTile(
                       leading: Icon(
-                        Icons.info_outline,
+                        Icons.movie,
                         color: Colors.white,
                       ),
                       title: Text(
-                        "Create Voice enabled form",
+                        "Home",
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ),
                   ),
-                    Divider(),
-               
+                  Divider(),
                   InkWell(
                     onTap: () => Navigator.of(context)
                         .pushReplacementNamed(Companyv.routeName),
@@ -66,7 +65,7 @@ class AppDrawer extends StatelessWidget {
                         color: Colors.white,
                       ),
                       title: Text(
-                        "Home",
+                        "Voiceform",
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ),
@@ -131,7 +130,7 @@ class AppDrawer extends StatelessWidget {
                       ),
                     ),
                   ),
-                     Divider(),
+                  Divider(),
                   Divider(),
                 ],
               ),
@@ -141,10 +140,9 @@ class AppDrawer extends StatelessWidget {
       ),
     );
   }
-}
+}*/
 
 class MyAppDrawer extends StatelessWidget {
-
   MyAppDrawer();
 
   @override
@@ -155,7 +153,10 @@ class MyAppDrawer extends StatelessWidget {
             gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color.fromRGBO(143, 148, 251, 1), Color.fromRGBO(160, 148, 251, 1)],
+          colors: [
+            Color.fromRGBO(143, 148, 251, 1),
+            Color.fromRGBO(160, 148, 251, 1)
+          ],
         )),
         child: ListView(
           physics: BouncingScrollPhysics(),
@@ -180,46 +181,71 @@ class MyAppDrawer extends StatelessWidget {
               ),
             )),
             ListTile(
-              leading: Icon(Icons.home, color: Colors.white,),
-              onTap: () => Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => Home())),
+                leading: Icon(
+                  Icons.home,
+                  color: Colors.white,
+                ),
+                onTap: () => Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => Companyv())),
                 title: Text(
-              "Home",
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            )),
+                  "Voice Form",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                )),
             ListTile(
-              leading: Icon(Icons.file_upload, color: Colors.white,),
-              onTap: (){
-                Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => Upload()));
-              },
+                leading: Icon(
+                  Icons.home,
+                  color: Colors.white,
+                ),
+                onTap: () => Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => Home())),
                 title: Text(
-              "Upload",
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            )),
+                  "Home",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                )),
             ListTile(
-              leading: Icon(Icons.book, color: Colors.white,),
+                leading: Icon(
+                  Icons.file_upload,
+                  color: Colors.white,
+                ),
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => Upload()));
+                },
                 title: Text(
-              "Summarizer",
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            )),
+                  "Upload",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                )),
             ListTile(
-              leading: Icon(Icons.exit_to_app, color: Colors.white,),
-              onTap: (){
-                Navigator.of(context).pushReplacementNamed(Login.routeName);
-              },
+                leading: Icon(
+                  Icons.book,
+                  color: Colors.white,
+                ),
                 title: Text(
-              "Logout",
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            )),
+                  "Summarizer",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                )),
+            ListTile(
+                leading: Icon(
+                  Icons.exit_to_app,
+                  color: Colors.white,
+                ),
+                onTap: () {
+                  Navigator.of(context).pushReplacementNamed(Login.routeName);
+                },
+                title: Text(
+                  "Logout",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                )),
           ],
         ),
       ),

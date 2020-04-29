@@ -5,6 +5,7 @@ import '../Animation/FadeAnimation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../providers/model.dart';
 
 class Signup extends StatefulWidget {
   static const routeName = '/signup';
@@ -84,7 +85,7 @@ class _Signup extends State<Signup> {
         }
       });
 
-      final String url = "http://1b77e76a.ngrok.io/register";
+      final String url = "http://e5ee75e5.ngrok.io/register";
       final response = await http.post(
         url,
         headers: {
@@ -99,8 +100,7 @@ class _Signup extends State<Signup> {
         }),
       );
       print(response.body);
-
-      Navigator.of(context).pushReplacementNamed(Home.routeName);
+      Navigator.of(context).pushReplacementNamed(Login.routeName);
     }
   }
 

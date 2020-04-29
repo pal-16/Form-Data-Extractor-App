@@ -35,9 +35,13 @@ class _HomeState extends State<Home> {
         color: Colors.white,
       ),
       actions: <Widget>[
-        IconButton(icon: Icon(Icons.settings), color: Colors.white, onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> SettingsPage()));
-        })
+        IconButton(
+            icon: Icon(Icons.settings),
+            color: Colors.white,
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SettingsPage()));
+            })
       ],
       backgroundColor: Colors.transparent,
       elevation: 0.0,
@@ -52,32 +56,32 @@ class _HomeState extends State<Home> {
       return Padding(
         padding: const EdgeInsets.all(13.0),
         child: GestureDetector(
-          onTap: () => Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Upload(action))),
-                  child: Card(
+          onTap: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Upload(action))),
+          child: Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0),
             ),
             elevation: 3.0,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        CircleAvatar(
-                          backgroundImage: AssetImage(imageUrl),
-                          radius: 50,
-                        ),
-                        SizedBox(height: 10.0,),
-                        Flexible(
-                          child: Text(
-                            text,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.black
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CircleAvatar(
+                  backgroundImage: AssetImage(imageUrl),
+                  radius: 50,
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Flexible(
+                  child: Text(
+                    text,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       );
@@ -92,10 +96,12 @@ class _HomeState extends State<Home> {
           crossAxisCount: 2,
           // Generate 100 widgets that display their index in the List.
           children: [
-            homeCard("assets/images/1.png", "Scan Hardcopy Form", "registration"),
+            homeCard(
+                "assets/images/1.png", "Scan Hardcopy Form", "registration"),
             homeCard("assets/images/2.png", "Generate Summary", "summarize"),
             homeCard("assets/images/3.png", "Evaluate your Resume", "resume"),
-            homeCard("assets/images/4.png", "Evaluate Feedback Forms", "feedback"),
+            homeCard(
+                "assets/images/4.png", "Evaluate Feedback Forms", "feedback"),
           ],
         ),
       );
@@ -106,7 +112,7 @@ class _HomeState extends State<Home> {
         new Container(
           height: double.infinity,
           width: double.infinity,
-          decoration:new BoxDecoration(
+          decoration: new BoxDecoration(
             image: new DecorationImage(
               image: new AssetImage("assets/images/homebg.png"),
               fit: BoxFit.cover,
@@ -114,19 +120,19 @@ class _HomeState extends State<Home> {
           ),
         ),
         Scaffold(
-          extendBodyBehindAppBar: true,
-          key: _scaffoldKey,
-          drawer: MyAppDrawer(),
-          appBar: appBar(_scaffoldKey),
-          body: Container(
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/images/homebg.png'),
-                    fit: BoxFit.cover)),
-            child: new Center(
-              child: homePage(),
-            ),
-          )),
+            extendBodyBehindAppBar: true,
+            key: _scaffoldKey,
+            drawer: MyAppDrawer(),
+            appBar: appBar(_scaffoldKey),
+            body: Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/homebg.png'),
+                      fit: BoxFit.cover)),
+              child: new Center(
+                child: homePage(),
+              ),
+            )),
       ],
     );
   }

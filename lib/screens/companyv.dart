@@ -6,6 +6,7 @@ import 'package:terna_app/screens/voiceform.dart';
 
 import '../screens/voiceform.dart';
 import '../widgets/app_drawer.dart';
+import '../providers/model.dart';
 
 /*class Companyv extends StatelessWidget {
   static const routeName = '/home';
@@ -70,6 +71,7 @@ class _CompanyvState extends State {
   var holder = [];
 
   Future<void> saveForm() async {
+    print("hello");
     numbers.forEach((key, value) {
       if (!holder.contains(key)) {
         if (value == true) {
@@ -77,27 +79,37 @@ class _CompanyvState extends State {
         }
       }
     });
+    print(holder);
 
-//    final String url = "http://1b77e76a.ngrok.io/voice";
-//    final response = await http.post(
-//      url,
-//      headers: {
-//        "Accept": "application/json",
-//        "Content-Type": "application/json",
-//      },
-//      body: json.encode({'data': holder}),
-//    );
+    final String url = "http://e5ee75e5.ngrok.io/voice";
+    final response = await http.post(
+      url,
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: json.encode({'data': holder, 'email': User.email}),
+    );
   }
 
   var getholder = [];
 
   getPreview() async {
-    final res = await http.get("http://1b77e76a.ngrok.io/getvoice",
-        headers: {"Accept": "aplication/json"});
-    final jsonData = json.decode(res.body);
+    final String url = "http://e5ee75e5.ngrok.io/getvoice";
+    print(User.email);
+    final response = await http.post(
+      url,
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: json.encode({'email': User.email}),
+    );
+
+    final jsonData = json.decode(response.body);
+    print(jsonData);
     getholder = jsonData['data'];
-    print(getholder); // @saif =======> get holder prints ['name','age','salary']
-    // print(getholder[0]);
+    print(getholder);
   }
 
   getNew() {
@@ -116,7 +128,6 @@ class _CompanyvState extends State {
                 style:
                     TextStyle(fontFamily: 'Aleo', fontWeight: FontWeight.bold)),
             onPressed: () {
-              
               if (customController.text != '')
                 holder.add(customController.text);
               Navigator.of(context).pop();
@@ -175,25 +186,26 @@ class _CompanyvState extends State {
             splashColor: Colors.grey,
             padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
           ),
-//          RaisedButton(
-//            child: Text(
-//              "Retrieve",
-//              style: TextStyle(fontSize: 12),
-//            ),
-//            onPressed: getPreview,
-//            color: Colors.white,
-//            textColor: Colors.black,
-//            splashColor: Colors.grey,
-//            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-//          ),
+          RaisedButton(
+            child: Text(
+              "Retrieve",
+              style: TextStyle(fontSize: 12),
+            ),
+            onPressed: getPreview,
+            color: Colors.white,
+            textColor: Colors.black,
+            splashColor: Colors.grey,
+            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+          ),
           RaisedButton(
             child: Text(
               "Generate voice form",
               style: TextStyle(fontSize: 12),
             ),
-            onPressed: (){
+            onPressed: () {
               print(holder);
-              Navigator.of(context).pushNamed(VoiceHome.routeName,arguments: {"properties": holder});
+              Navigator.of(context).pushNamed(VoiceHome.routeName,
+                  arguments: {"properties": getholder});
             },
             color: Colors.white,
             textColor: Colors.black,

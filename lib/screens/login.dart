@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import '../screens/signup.dart';
 import '../Animation/FadeAnimation.dart';
-//import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../screens/home.dart';
-//import 'upload.dart';
+import '../screens/companyv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
-/*void load(bool logged) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  logged = prefs.getBool('logged') ?? false;
-}*/
+import '../providers/model.dart';
 
 class Login extends StatefulWidget {
   static const routeName = '/login';
@@ -22,16 +17,13 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   String email, name, password, type;
   int b = 0;
-  final TextEditingController _nameController = new TextEditingController();
+  final TextEditingController _emailcontroller = new TextEditingController();
   final TextEditingController _passwordController = new TextEditingController();
   final TextEditingController _emailController = new TextEditingController();
 
   void _saveForm() async {
     email = _emailController.text;
-    name = _nameController.text;
-
     password = _passwordController.text;
-
     if (password.length < 8) {
       _emailController.text = "";
       _passwordController.text = "";
@@ -59,18 +51,17 @@ class _LoginState extends State<Login> {
     } else {
       setState(() {
         if (b == 2) {
+          email = _emailController.text;
+          password = _passwordController.text;
           type = 'company';
         } else {
+          email = _emailController.text;
+          password = _passwordController.text;
           type = 'user';
         }
       });
 
-
-      final String url = "http://1b77e76a.ngrok.io/login";
-
-
-      /*final String url = "http://6a160c04.ngrok.io/login";
->>>>>>> 4b612c84f73189b419f1ac9608bd26930c4ac64d
+      final String url = "http://e5ee75e5.ngrok.io/login";
       final response = await http.post(
         url,
         headers: {
@@ -78,18 +69,19 @@ class _LoginState extends State<Login> {
           "Content-Type": "application/json",
         },
         body: json.encode({
-          'name': _nameController.text,
+          'email': _emailcontroller.text,
           'password': _passwordController.text,
         }),
       );
-<<<<<<< HEAD
       print(response.body);
-=======
->>>>>>> 4b612c84f73189b419f1ac9608bd26930c4ac64d
-
-
-      print(response.body);*/
-      Navigator.of(context).pushReplacementNamed(Home.routeName);
+      final jsonData = json.decode(response.body);
+      User.email = jsonData['email'];
+      print(User.email);
+      if (User.email != "") {
+        Navigator.of(context).pushReplacementNamed(Home.routeName);
+      } else {
+        Navigator.of(context).pushReplacementNamed(Login.routeName);
+      }
     }
   }
 
@@ -194,10 +186,10 @@ class _LoginState extends State<Login> {
                                           bottom: BorderSide(
                                               color: Colors.grey[100]))),
                                   child: TextField(
-                                    controller: _nameController,
+                                    controller: _emailcontroller,
                                     decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: "Username",
+                                        hintText: "Email",
                                         hintStyle:
                                             TextStyle(color: Colors.grey[400])),
                                   ),
