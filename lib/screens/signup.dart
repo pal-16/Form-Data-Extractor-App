@@ -85,7 +85,7 @@ class _Signup extends State<Signup> {
         }
       });
 
-      final String url = "http://e5ee75e5.ngrok.io/register";
+      final String url = "http://f880b9d1.ngrok.io/register";
       final response = await http.post(
         url,
         headers: {
@@ -304,11 +304,21 @@ class _Signup extends State<Signup> {
                       height: 20,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         InkWell(
                           child: Text(
-                            "Already Have an account? Login",
+                            "Already Have an account?",
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontFamily: "Aleo",
+                                fontSize: (16)),
+                          ),
+                          onTap: () {},
+                        ),
+                        InkWell(
+                          child: Text(
+                            "Login",
                             style: TextStyle(
                                 color: Colors.blue,
                                 fontFamily: "Aleo",
@@ -316,7 +326,7 @@ class _Signup extends State<Signup> {
                           ),
                           onTap: () =>
                               Navigator.of(context).pushNamed(Login.routeName),
-                        )
+                        ),
                       ],
                     ),
                   ],
