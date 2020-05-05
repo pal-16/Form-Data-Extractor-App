@@ -9,6 +9,9 @@ import '../widgets/app_drawer.dart';
 
 class Home extends StatefulWidget {
   static const routeName = '/home';
+  final String username;
+  final String email;
+  Home([this.username="Anonymus", this.email="Anonymus"]);
 
   @override
   _HomeState createState() => new _HomeState();
@@ -40,7 +43,7 @@ class _HomeState extends State<Home> {
             color: Colors.white,
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SettingsPage()));
+                  MaterialPageRoute(builder: (context) => SettingsPage(widget.username ,widget.email)));
             })
       ],
       backgroundColor: Colors.transparent,
@@ -122,7 +125,7 @@ class _HomeState extends State<Home> {
         Scaffold(
             extendBodyBehindAppBar: true,
             key: _scaffoldKey,
-            drawer: MyAppDrawer(),
+            drawer: MyAppDrawer(widget.username),
             appBar: appBar(_scaffoldKey),
             body: Container(
               decoration: BoxDecoration(

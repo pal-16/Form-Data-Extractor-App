@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:terna_app/screens/settings.dart';
 import 'package:terna_app/screens/voiceform.dart';
 
 import '../screens/voiceform.dart';
@@ -62,7 +63,12 @@ class _CompanyvState extends State {
       ),
       actions: <Widget>[
         IconButton(
-            icon: Icon(Icons.settings), color: Colors.white, onPressed: () {})
+            icon: Icon(Icons.settings),
+            color: Colors.white,
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SettingsPage()));
+            })
       ],
       backgroundColor: Color.fromRGBO(143, 148, 251, 1),
     );
@@ -81,7 +87,11 @@ class _CompanyvState extends State {
     });
     print(holder);
 
+<<<<<<< HEAD
     final String url = "http://608f19c2.ngrok.io/createvoicefields";
+=======
+    final String url = "http://4394f4a3.ngrok.io/voice";
+>>>>>>> 60ef947aeb7e11029aa53f3eb80b9073f50962f0
     final response = await http.post(
       url,
       headers: {
@@ -95,7 +105,11 @@ class _CompanyvState extends State {
   var getholder = [];
 
   getPreview() async {
+<<<<<<< HEAD
     final String url = "http://608f19c2.ngrok.io/getvoicefields";
+=======
+    final String url = "http://4394f4a3.ngrok.io/getvoice";
+>>>>>>> 60ef947aeb7e11029aa53f3eb80b9073f50962f0
     print(User.email);
     final response = await http.post(
       url,
@@ -164,53 +178,111 @@ class _CompanyvState extends State {
               }).toList(),
             ),
           ),
-          RaisedButton(
-            child: Text(
-              "save form ",
-              style: TextStyle(fontSize: 15),
-            ),
-            onPressed: saveForm,
-            color: Colors.white,
-            textColor: Colors.black,
-            splashColor: Colors.grey,
-            padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(7.0),
+                  child: RaisedButton(
+                    shape: StadiumBorder(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.save),
+                        Text(
+                          " Save Form",
+                          style: TextStyle(fontSize: 15),
+                        ),
+                      ],
+                    ),
+                    onPressed: saveForm,
+                    color: Color(0xff8f94fb),
+                    textColor: Colors.white,
+                    splashColor: Colors.grey,
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(7.0),
+                  child: RaisedButton(
+                    shape: StadiumBorder(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.add),
+                        Text(
+                          " Add my own field ",
+                          style: TextStyle(fontSize: 15),
+                        ),
+                      ],
+                    ),
+                    onPressed: getNew,
+                    color: Color(0xff8f94fb),
+                    textColor: Colors.white,
+                    splashColor: Colors.grey,
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  ),
+                ),
+              ),
+            ],
           ),
-          RaisedButton(
-            child: Text(
-              "Add my own field ",
-              style: TextStyle(fontSize: 12),
-            ),
-            onPressed: getNew,
-            color: Colors.white,
-            textColor: Colors.black,
-            splashColor: Colors.grey,
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-          ),
-          RaisedButton(
-            child: Text(
-              "Retrieve",
-              style: TextStyle(fontSize: 12),
-            ),
-            onPressed: getPreview,
-            color: Colors.white,
-            textColor: Colors.black,
-            splashColor: Colors.grey,
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-          ),
-          RaisedButton(
-            child: Text(
-              "Generate voice form",
-              style: TextStyle(fontSize: 12),
-            ),
-            onPressed: () {
-              print(holder);
-              Navigator.of(context).pushNamed(VoiceHome.routeName,
-                  arguments: {"properties": getholder});
-            },
-            color: Colors.white,
-            textColor: Colors.black,
-            splashColor: Colors.grey,
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(7.0),
+                  child: RaisedButton(
+                    shape: StadiumBorder(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.call_received),
+                        Text(
+                          " Retrieve",
+                          style: TextStyle(fontSize: 15),
+                        ),
+                      ],
+                    ),
+                    onPressed: getPreview,
+                    color: Color(0xff8f94fb),
+                    textColor: Colors.white,
+                    splashColor: Colors.grey,
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(7.0),
+                  child: RaisedButton(
+                    shape: StadiumBorder(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.record_voice_over),
+                        Text(
+                          " Generate voice form",
+                          style: TextStyle(fontSize: 15),
+                        ),
+                      ],
+                    ),
+                    onPressed: () {
+                      print(holder);
+                      Navigator.of(context).pushNamed(VoiceHome.routeName,
+                          arguments: {"properties": getholder});
+                    },
+                    color: Color(0xff8f94fb),
+                    textColor: Colors.white,
+                    splashColor: Colors.grey,
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

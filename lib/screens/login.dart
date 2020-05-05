@@ -17,11 +17,17 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   String email, name, password, type;
   int b = 0;
+  bool isProcessing = false;
+  bool hasFailed = false;
   final TextEditingController _emailcontroller = new TextEditingController();
   final TextEditingController _passwordController = new TextEditingController();
   final TextEditingController _emailController = new TextEditingController();
 
+
   void _saveForm() async {
+    setState(() {
+      isProcessing = true;
+    });
     email = _emailController.text;
     password = _passwordController.text;
     if (password.length < 8) {
@@ -61,7 +67,11 @@ class _LoginState extends State<Login> {
         }
       });
 
+<<<<<<< HEAD
       final String url = "http://608f19c2.ngrok.io/applogin";
+=======
+      final String url = "http://f880b9d1.ngrok.io/login";
+>>>>>>> 60ef947aeb7e11029aa53f3eb80b9073f50962f0
       final response = await http.post(
         url,
         headers: {
@@ -78,8 +88,15 @@ class _LoginState extends State<Login> {
       User.email = jsonData['email'];
       print(User.email);
       if (jsonData['logged'] == 1) {
-        Navigator.of(context).pushReplacementNamed(Home.routeName);
+        setState(() {
+          isProcessing = false;
+        });
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home(jsonData["result"][0][2], jsonData["result"][0][1])));
       } else {
+        setState(() {
+          hasFailed = true;
+          isProcessing = false;
+        });
         Navigator.of(context).pushReplacementNamed(Login.routeName);
       }
     }
@@ -270,11 +287,21 @@ class _LoginState extends State<Login> {
                         height: 20,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           InkWell(
                             child: Text(
-                              "Don't have an account? Register",
+                              "Don't have an account?",
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontFamily: "Aleo",
+                                  fontSize: (16)),
+                            ),
+                            onTap: (){},
+                          ),
+                          InkWell(
+                            child: Text(
+                              "Register",
                               style: TextStyle(
                                   color: Colors.blue,
                                   fontFamily: "Aleo",
@@ -282,7 +309,7 @@ class _LoginState extends State<Login> {
                             ),
                             onTap: () => Navigator.of(context)
                                 .pushNamed(Signup.routeName),
-                          )
+                          ),
                         ],
                       ),
                     ],

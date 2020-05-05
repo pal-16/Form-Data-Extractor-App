@@ -23,13 +23,13 @@ class _ResultState extends State<Result> {
   @override
   initState() {
     if (widget.action == "summarize") {
-      flaskEndPoint = 'http://5ca59f40.ngrok.io/home/summarizer';
+      flaskEndPoint = 'http://f880b9d1.ngrok.io/home/summarizer';
     } else if (widget.action == "resume") {
-      flaskEndPoint = 'http://5ca59f40.ngrok.io/home/resume';
+      flaskEndPoint = 'http://f880b9d1.ngrok.io/home/resume';
     } else if (widget.action == "feedback") {
-      flaskEndPoint = 'http://5ca59f40.ngrok.io/home/sentimental';
+      flaskEndPoint = 'http://f880b9d1.ngrok.io/home/sentimental';
     } else {
-      flaskEndPoint = 'http://5ca59f40.ngrok.io/home/registration';
+      flaskEndPoint = 'http://f880b9d1.ngrok.io/home/registration';
     }
     super.initState();
   }

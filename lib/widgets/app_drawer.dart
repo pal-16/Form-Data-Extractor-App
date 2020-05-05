@@ -143,7 +143,46 @@ import '../screens/companyv.dart';
 }*/
 
 class MyAppDrawer extends StatelessWidget {
-  MyAppDrawer();
+  final String username;
+  MyAppDrawer([this.username="Anonymus"]);
+
+  showAlertDialog(BuildContext context) {
+    // Create button
+    Widget logoutButton = FlatButton(
+      child: Text(
+        "Logout",
+        style: TextStyle(color: Color(0xff8f94fb)),
+      ),
+      onPressed: () {
+        Navigator.of(context).pushReplacementNamed(Login.routeName);
+      },
+    );
+
+    Widget cancelButton = FlatButton(
+      child: Text(
+        "Cancel",
+        style: TextStyle(color: Color(0xff8f94fb)),
+      ),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+
+    // Create AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Are you sure you want to sign out?"),
+      content: Text("Any unsaved work might be lost."),
+      actions: [logoutButton, cancelButton],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -167,32 +206,27 @@ class MyAppDrawer extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   CircleAvatar(
-                    radius: 55,
-                    backgroundImage: AssetImage('assets/images/me.png'),
+                    radius: 50,
+                    backgroundColor: Colors.white,
+                    child: Text(
+                      username[0],
+                      style: TextStyle(
+                        color: Color(0xff8f94fb),
+                        fontSize: 50,
+                      ),
+                    ),
                   ),
                   SizedBox(
                     height: 10.0,
                   ),
-                  Text("Mohammed Mehdi",
+                  Text(username,
                       style: TextStyle(
                         color: Colors.white,
+                        fontSize: 17,
                       ))
                 ],
               ),
             )),
-            ListTile(
-                leading: Icon(
-                  Icons.home,
-                  color: Colors.white,
-                ),
-                onTap: () => Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => Companyv())),
-                title: Text(
-                  "Voice Form",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                )),
             ListTile(
                 leading: Icon(
                   Icons.home,
@@ -234,11 +268,24 @@ class MyAppDrawer extends StatelessWidget {
                 )),
             ListTile(
                 leading: Icon(
+                  Icons.keyboard_voice,
+                  color: Colors.white,
+                ),
+                onTap: () => Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => Companyv())),
+                title: Text(
+                  "Voice Form",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                )),
+            ListTile(
+                leading: Icon(
                   Icons.exit_to_app,
                   color: Colors.white,
                 ),
                 onTap: () {
-                  Navigator.of(context).pushReplacementNamed(Login.routeName);
+                  showAlertDialog(context);
                 },
                 title: Text(
                   "Logout",
