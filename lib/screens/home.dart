@@ -10,8 +10,12 @@ import '../widgets/app_drawer.dart';
 class Home extends StatefulWidget {
   static const routeName = '/home';
   final String username;
+  final String password;
   final String email;
-  Home([this.username="Anonymus", this.email="Anonymus"]);
+  Home(
+      [this.username = "Anonymus",
+      this.email = "Anonymus",
+      this.password = "Anonymus"]);
 
   @override
   _HomeState createState() => new _HomeState();
@@ -42,8 +46,11 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.settings),
             color: Colors.white,
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SettingsPage(widget.username ,widget.email)));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SettingsPage(
+                          widget.username, widget.email, widget.password)));
             })
       ],
       backgroundColor: Colors.transparent,
@@ -140,34 +147,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-/*
-new Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                  child: Text(
-                    'This screen appears after logging and signup',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(10),
-                  child: RaisedButton(
-                    color: Color.fromRGBO(143, 148, 251, 1),
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Upload()));
-                    },
-                    child: Text(
-                      'Upload',
-                    ),
-                  ),
-                )
-              ],
-            ),
-*/

@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:terna_app/screens/edit_profile.dart';
 
 class SettingsPage extends StatelessWidget {
-  final String username, email;
-  SettingsPage([this.username="Anonymus", this.email="Anonymus"]);
+  final String username, password, email;
+  SettingsPage(
+      [this.username = "Anonymus",
+      this.email = "Anonymus",
+      this.password = "Anonymus"]);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff8f94fb),
       body: Padding(
-        padding:
-            const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+        padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
         child: ListView(
           children: <Widget>[
             Row(
@@ -29,16 +31,21 @@ class SettingsPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 20.0,),
+            SizedBox(
+              height: 20.0,
+            ),
             Row(
               children: <Widget>[
                 CircleAvatar(
                   backgroundColor: Colors.white,
-                  radius: 45,
-                  child: Text(username[0], style: TextStyle(
-                    fontSize: 35,
-                    color: Color(0xff8f94fb),
-                  ),),
+                  radius: 40,
+                  child: Text(
+                    username[0],
+                    style: TextStyle(
+                      fontSize: 35,
+                      color: Color(0xff8f94fb),
+                    ),
+                  ),
                 ),
                 Text(
                   "    $username\n    $email",
@@ -46,13 +53,23 @@ class SettingsPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 20.0,),
-            Divider(color: Colors.white,),
-            SizedBox(height: 20.0,),
+            SizedBox(
+              height: 20.0,
+            ),
+            Divider(
+              color: Colors.white,
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
             Column(
               children: <Widget>[
                 ListTile(
-                  leading: Icon(Icons.account_circle, color: Colors.white, size: 30.0,),
+                  leading: Icon(
+                    Icons.account_circle,
+                    color: Colors.white,
+                    size: 30.0,
+                  ),
                   title: Text(
                     "My Account",
                     style: TextStyle(
@@ -60,10 +77,18 @@ class SettingsPage extends StatelessWidget {
                       fontSize: 25.0,
                     ),
                   ),
-                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfile(username, email))),
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              EditProfile(username, email, password))),
                 ),
                 ListTile(
-                  leading: Icon(Icons.feedback, color: Colors.white, size: 30.0,),
+                  leading: Icon(
+                    Icons.feedback,
+                    color: Colors.white,
+                    size: 30.0,
+                  ),
                   title: Text(
                     "Feedback",
                     style: TextStyle(
@@ -73,7 +98,11 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.info, color: Colors.white, size: 30.0,),
+                  leading: Icon(
+                    Icons.info,
+                    color: Colors.white,
+                    size: 30.0,
+                  ),
                   title: Text(
                     "About Us",
                     style: TextStyle(

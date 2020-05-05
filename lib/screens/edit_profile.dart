@@ -1,21 +1,46 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import '../providers/model.dart';
+import '../screens/home.dart';
 
 class EditProfile extends StatefulWidget {
-  final String username, email;
-  EditProfile(this.username, this.email);
+  static const routeName = '/editprofile';
+
+  final String username, email, password;
+
+  EditProfile(this.username, this.email, this.password);
 
   @override
   _EditProfileState createState() => _EditProfileState();
 }
 
 class _EditProfileState extends State<EditProfile> {
-  TextEditingController emailController, usernameController;
+  TextEditingController passwordController, usernameController, emailController;
 
   @override
   void initState() {
-    emailController = TextEditingController(text: widget.email);
+    passwordController = TextEditingController(text: widget.password);
     usernameController = TextEditingController(text: widget.username);
+    emailController = TextEditingController(text: widget.email);
     super.initState();
+  }
+
+  void saveinfo() async {
+    final String url = "http://2ec43766.ngrok.io/appeditprofile";
+    final response = await http.post(
+      url,
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: json.encode({
+        'email': User.email,
+        'username': usernameController.text,
+        'password': passwordController.text,
+      }),
+    );
+    //show the message that info got updated
   }
 
   @override
@@ -47,33 +72,54 @@ class _EditProfileState extends State<EditProfile> {
                 labelText: 'Username',
                 labelStyle: TextStyle(color: Colors.white),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white, width: 1.0),
+                  borderSide: BorderSide(color: Colors.white, width: 2.0),
                 ),
                 disabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white, width: 1.0),
+                  borderSide: BorderSide(color: Colors.white, width: 2.0),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white, width: 1.0),
+                  borderSide: BorderSide(color: Colors.black, width: 2.0),
                 ),
               ),
             ),
             SizedBox(
               height: 20.0,
             ),
-            TextFormField(
+            TextField(
               controller: emailController,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 labelText: 'Email',
                 labelStyle: TextStyle(color: Colors.white),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white, width: 1.0),
+                  borderSide: BorderSide(color: Colors.white, width: 2.0),
                 ),
                 disabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white, width: 1.0),
+                  borderSide: BorderSide(color: Colors.white, width: 2.0),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white, width: 1.0),
+                  borderSide: BorderSide(color: Colors.red, width: 2.0),
+                ),
+              ),
+              readOnly: true,
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            TextFormField(
+              controller: passwordController,
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                labelText: 'Password',
+                labelStyle: TextStyle(color: Colors.white),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 2.0),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 2.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 2.0),
                 ),
               ),
             ),
@@ -90,7 +136,7 @@ class _EditProfileState extends State<EditProfile> {
                   style: TextStyle(color: Color(0xff8f94fb)),
                 ),
                 color: Colors.white,
-                onPressed: (){},
+                onPressed: saveinfo,
               ),
             )
           ],

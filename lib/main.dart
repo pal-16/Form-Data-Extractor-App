@@ -10,6 +10,7 @@ import 'screens/feedbackk.dart';
 import 'screens/result.dart';
 import 'screens/companyv.dart';
 import 'screens/voiceform.dart';
+import 'screens/edit_profile.dart';
 
 void main() {
   runApp(TernaApp());

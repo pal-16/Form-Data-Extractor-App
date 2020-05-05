@@ -23,7 +23,6 @@ class _LoginState extends State<Login> {
   final TextEditingController _passwordController = new TextEditingController();
   final TextEditingController _emailController = new TextEditingController();
 
-
   void _saveForm() async {
     setState(() {
       isProcessing = true;
@@ -67,11 +66,7 @@ class _LoginState extends State<Login> {
         }
       });
 
-<<<<<<< HEAD
-      final String url = "http://608f19c2.ngrok.io/applogin";
-=======
-      final String url = "http://f880b9d1.ngrok.io/login";
->>>>>>> 60ef947aeb7e11029aa53f3eb80b9073f50962f0
+      final String url = "http://2ec43766.ngrok.io/applogin";
       final response = await http.post(
         url,
         headers: {
@@ -91,7 +86,9 @@ class _LoginState extends State<Login> {
         setState(() {
           isProcessing = false;
         });
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home(jsonData["result"][0][2], jsonData["result"][0][1])));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => Home(jsonData["result"][0][2],
+                jsonData["result"][0][1], jsonData["result"][0][3])));
       } else {
         setState(() {
           hasFailed = true;
@@ -297,7 +294,7 @@ class _LoginState extends State<Login> {
                                   fontFamily: "Aleo",
                                   fontSize: (16)),
                             ),
-                            onTap: (){},
+                            onTap: () {},
                           ),
                           InkWell(
                             child: Text(
