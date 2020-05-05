@@ -81,7 +81,7 @@ class _CompanyvState extends State {
     });
     print(holder);
 
-    final String url = "http://e5ee75e5.ngrok.io/voice";
+    final String url = "http://608f19c2.ngrok.io/createvoicefields";
     final response = await http.post(
       url,
       headers: {
@@ -95,7 +95,7 @@ class _CompanyvState extends State {
   var getholder = [];
 
   getPreview() async {
-    final String url = "http://e5ee75e5.ngrok.io/getvoice";
+    final String url = "http://608f19c2.ngrok.io/getvoicefields";
     print(User.email);
     final response = await http.post(
       url,
