@@ -1,15 +1,16 @@
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
-//import '../screens/home.dart';
 import '../widgets/app_drawer.dart';
 import '../screens/result.dart';
-//import 'package:dio/dio.dart';
+import 'package:dio/dio.dart';
+
 
 class Upload extends StatefulWidget {
   static const routeName = '/upload';
   final String action;
   Upload([this.action]);
+
 
   @override
   __UploadState createState() => __UploadState();
@@ -17,7 +18,7 @@ class Upload extends StatefulWidget {
 
 class __UploadState extends State<Upload> {
   File _storedImage;
-  //final String flaskEndPoint = 'http://9f5713f0.ngrok.io/';
+
   Future<void> _takePicture() async {
     final imageFile = await ImagePicker.pickImage(
       source: ImageSource.camera,
@@ -37,15 +38,18 @@ class __UploadState extends State<Upload> {
     });
   }
 
-  /*void _upload() async{
-    Response response;
-    Dio dio = new Dio();
-    FormData formData = FormData.fromMap({
-      "file": await MultipartFile.fromFile(_storedImage.path, filename: "upload.jpg")
-    });
-    response = await dio.post(flaskEndPoint, data: formData);
-    print(response.data);
-  }*/
+//  void _upload() async{
+//    final String flaskEndPoint = 'http://75b868c2.ngrok.io/' + widget.action;
+//
+//    Response response;
+//    Dio dio = new Dio();
+//    FormData formData = FormData.fromMap({
+//      "file-name": await MultipartFile.fromFile(_storedImage.path, filename: "upload.jpg"),
+//      "param" : 1,
+//    });
+//    response = await dio.post(flaskEndPoint, data: formData);
+//    print(response.data);
+//  }
 
   Widget appBar(scaffoldkey) {
     return AppBar(
@@ -75,7 +79,8 @@ class __UploadState extends State<Upload> {
             child: MaterialButton(
               textColor: Colors.black,
               onPressed: () {
-                //_upload();
+//                _upload();
+                print("done upload");
                 Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (context) => Result(widget.action, _storedImage)));
               },

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../screens/signup.dart';
 import '../Animation/FadeAnimation.dart';
 import '../screens/home.dart';
-import '../screens/companyv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../providers/model.dart';
@@ -66,7 +65,7 @@ class _LoginState extends State<Login> {
         }
       });
 
-      final String url = "http://2ec43766.ngrok.io/applogin";
+      final String url = "http://75b868c2.ngrok.io/applogin";
       final response = await http.post(
         url,
         headers: {

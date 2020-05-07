@@ -1,11 +1,9 @@
-//import 'dart:io';
-import '../screens/home.dart';
 import '../screens/login.dart';
 import '../Animation/FadeAnimation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../providers/model.dart';
+
 
 class Signup extends StatefulWidget {
   static const routeName = '/signup';
@@ -85,7 +83,7 @@ class _Signup extends State<Signup> {
         }
       });
 
-      final String url = "http://2ec43766.ngrok.io/appregister";
+      final String url = "http://75b868c2.ngrok.io/appregister";
       final response = await http.post(
         url,
         headers: {

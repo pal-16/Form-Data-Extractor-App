@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter/services.dart';
 import 'screens/summarize.dart';
 import 'screens/login.dart';
 import 'screens/signup.dart';
@@ -10,7 +9,7 @@ import 'screens/feedbackk.dart';
 import 'screens/result.dart';
 import 'screens/companyv.dart';
 import 'screens/voiceform.dart';
-import 'screens/edit_profile.dart';
+
 
 void main() {
   runApp(TernaApp());

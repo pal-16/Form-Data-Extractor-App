@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-//import 'package:terna_app/screens/home.dart';
-//import 'package:flutter/services.dart';
-//import '../screens/upload.dart';
+import 'package:terna_app/screens/home.dart';
+import 'package:flutter/services.dart';
+import '../screens/upload.dart';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import '../widgets/app_drawer.dart';
@@ -19,18 +19,12 @@ class Result extends StatefulWidget {
 
 class _ResultState extends State<Result> {
   String flaskEndPoint;
+  String result;
 
   @override
   initState() {
-    if (widget.action == "summarize") {
-      flaskEndPoint = 'http://f880b9d1.ngrok.io/home/summarizer';
-    } else if (widget.action == "resume") {
-      flaskEndPoint = 'http://f880b9d1.ngrok.io/home/resume';
-    } else if (widget.action == "feedback") {
-      flaskEndPoint = 'http://f880b9d1.ngrok.io/home/sentimental';
-    } else {
-      flaskEndPoint = 'http://f880b9d1.ngrok.io/home/registration';
-    }
+    result="";
+    flaskEndPoint = 'http://75b868c2.ngrok.io/'+widget.action;
     super.initState();
   }
 
@@ -39,14 +33,35 @@ class _ResultState extends State<Result> {
     Response response;
     Dio dio = new Dio();
     FormData formData = FormData.fromMap({
-      "file": await MultipartFile.fromFile(widget.imageFile.path,
-          filename: "upload.jpg")
+      "file-name": await MultipartFile.fromFile(widget.imageFile.path,
+          filename: "upload.jpg"),
+      "param":1,
     });
     response = await dio.post(flaskEndPoint, data: formData,
         onSendProgress: (int sent, int total) {
       print("$sent / $total");
     });
     print(response.data);
+    var res = response.data;
+
+
+    if(res["from"]=="classifier"){
+      print("from classifier");
+      result+=res["data"]["classifier_data"];
+
+    }
+    else if(res["from"]=="resume"){
+      print("from resume");
+      result+=res["data"]["resume_data"].toString();
+    }
+    else if(res["from"]=="sentiment_analysis"){
+      print("from sentiment");
+      result+=res["data"]["sentiment_analysis"];
+    }
+    else{
+      print("from summarizer");
+      result=res["data"]["summary"];
+    }
     return response.data;
   }
 
@@ -70,6 +85,9 @@ class _ResultState extends State<Result> {
       backgroundColor: Color.fromRGBO(143, 148, 251, 1),
     );
   }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +114,9 @@ class _ResultState extends State<Result> {
                     ),
                   );
                 }
-                if (snapshot.hasError) {
-                  return Text("Error");
-                }
+//                if (snapshot.hasError) {
+//                  return Text("Error");
+//                }
                 return Column(
                   children: <Widget>[
                     Expanded(
@@ -110,7 +128,7 @@ class _ResultState extends State<Result> {
                             child:Flex(
                               direction: Axis.horizontal,
                               children: <Widget>[
-                                Flexible(child: Text(snapshot.data['text'].toString()))
+                                Flexible(child: Text(result))
                               ],
                             ),
                           ),
