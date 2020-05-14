@@ -1,9 +1,10 @@
-import '../screens/login.dart';
-import '../Animation/FadeAnimation.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import '../Animation/FadeAnimation.dart';
+import '../screens/login.dart';
 
 class Signup extends StatefulWidget {
   static const routeName = '/signup';
@@ -82,7 +83,7 @@ class _Signup extends State<Signup> {
           type = 'user';
         }
       });
-      final String url = "http://8ed577ab.ngrok.io/appregister";
+      final String url = "http://4f7daecf.ngrok.io/appregister";
       final response = await http.post(
         url,
         headers: {
@@ -240,40 +241,50 @@ class _Signup extends State<Signup> {
                             ],
                           ),
                         )),
-                    Container(
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Text('Company'),
-                              Radio(
-                                activeColor: Color(0xff8f94fb),
-                                value: 2,
-                                groupValue: b,
-                                onChanged: (v) {
-                                  setState(() {
-                                    b = v;
-                                  });
-                                },
-                              ),
-                              Text('User'),
-                              Radio(
-                                activeColor: Color(0xff8f94fb),
-                                value: 3,
-                                groupValue: b,
-                                onChanged: (v) {
-                                  setState(() {
-                                    b = v;
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
+                    SizedBox(
+                      height: 10,
+                    ),
+                    FadeAnimation(
+                      1.9,
+                      Container(
+                        child: Column(
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Text("Type of user: "),
+                                SizedBox(
+                                  width: 50,
+                                ),
+                                Text('Company'),
+                                Radio(
+                                  activeColor: Color(0xff8f94fb),
+                                  value: 2,
+                                  groupValue: b,
+                                  onChanged: (v) {
+                                    setState(() {
+                                      b = v;
+                                    });
+                                  },
+                                ),
+                                Text('Individual'),
+                                Radio(
+                                  activeColor: Color(0xff8f94fb),
+                                  value: 3,
+                                  groupValue: b,
+                                  onChanged: (v) {
+                                    setState(() {
+                                      b = v;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 10,
                     ),
                     InkWell(
                       onTap: _saveForm,
@@ -300,31 +311,34 @@ class _Signup extends State<Signup> {
                     SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        InkWell(
-                          child: Text(
-                            "Already Have an account?",
-                            style: TextStyle(
-                                color: Colors.grey,
-                                fontFamily: "Aleo",
-                                fontSize: (16)),
+                    FadeAnimation(
+                      2.1,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          InkWell(
+                            child: Text(
+                              "Already Have an account? ",
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontFamily: "Aleo",
+                                  fontSize: (16)),
+                            ),
+                            onTap: () {},
                           ),
-                          onTap: () {},
-                        ),
-                        InkWell(
-                          child: Text(
-                            "Login",
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontFamily: "Aleo",
-                                fontSize: (16)),
+                          InkWell(
+                            child: Text(
+                              "Login",
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontFamily: "Aleo",
+                                  fontSize: (16)),
+                            ),
+                            onTap: () => Navigator.of(context)
+                                .pushNamed(Login.routeName),
                           ),
-                          onTap: () =>
-                              Navigator.of(context).pushNamed(Login.routeName),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),

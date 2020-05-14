@@ -67,7 +67,7 @@ class _LoginState extends State<Login> {
         }
       });
 
-      final String url = "http://8ed577ab.ngrok.io/applogin";
+      final String url = "http://4f7daecf.ngrok.io/applogin";
       final response = await http.post(
         url,
         headers: {
@@ -225,40 +225,50 @@ class _LoginState extends State<Login> {
                               ],
                             ),
                           )),
-                      Container(
-                        child: Column(
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Text('Company'),
-                                Radio(
-                                  activeColor: Color(0xff8f94fb),
-                                  value: 2,
-                                  groupValue: b,
-                                  onChanged: (v) {
-                                    setState(() {
-                                      b = v;
-                                    });
-                                  },
-                                ),
-                                Text('User'),
-                                Radio(
-                                  activeColor: Color(0xff8f94fb),
-                                  value: 3,
-                                  groupValue: b,
-                                  onChanged: (v) {
-                                    setState(() {
-                                      b = v;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                          ],
+                      SizedBox(
+                        height: 10,
+                      ),
+                      FadeAnimation(
+                        1.9,
+                        Container(
+                          child: Column(
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Text("Type of user: "),
+                                  SizedBox(
+                                    width: 50,
+                                  ),
+                                  Text('Company'),
+                                  Radio(
+                                    activeColor: Color(0xff8f94fb),
+                                    value: 2,
+                                    groupValue: b,
+                                    onChanged: (v) {
+                                      setState(() {
+                                        b = v;
+                                      });
+                                    },
+                                  ),
+                                  Text('Individual'),
+                                  Radio(
+                                    activeColor: Color(0xff8f94fb),
+                                    value: 3,
+                                    groupValue: b,
+                                    onChanged: (v) {
+                                      setState(() {
+                                        b = v;
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(
-                        height: 30,
+                        height: 10,
                       ),
                       InkWell(
                         onTap: _saveForm,
@@ -285,31 +295,34 @@ class _LoginState extends State<Login> {
                       SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          InkWell(
-                            child: Text(
-                              "Don't have an account?",
-                              style: TextStyle(
-                                  color: Colors.grey,
-                                  fontFamily: "Aleo",
-                                  fontSize: (16)),
+                      FadeAnimation(
+                        2.1,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            InkWell(
+                              child: Text(
+                                "Don't have an account? ",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontFamily: "Aleo",
+                                    fontSize: (16)),
+                              ),
+                              onTap: () {},
                             ),
-                            onTap: () {},
-                          ),
-                          InkWell(
-                            child: Text(
-                              "Register",
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontFamily: "Aleo",
-                                  fontSize: (16)),
+                            InkWell(
+                              child: Text(
+                                "Register here",
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontFamily: "Aleo",
+                                    fontSize: (16)),
+                              ),
+                              onTap: () => Navigator.of(context)
+                                  .pushNamed(Signup.routeName),
                             ),
-                            onTap: () => Navigator.of(context)
-                                .pushNamed(Signup.routeName),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),

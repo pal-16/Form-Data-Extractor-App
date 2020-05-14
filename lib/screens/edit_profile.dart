@@ -27,7 +27,7 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   void saveinfo() async {
-    final String url = "http://2ec43766.ngrok.io/appeditprofile";
+    final String url = "http://4f7daecf.ngrok.io/appeditprofile";
     final response = await http.post(
       url,
       headers: {

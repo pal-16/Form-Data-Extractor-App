@@ -14,7 +14,7 @@ class Resume extends StatefulWidget {
 
 class __ResumeState extends State<Resume> {
 
-  final String flaskEndPoint = 'http://75b868c2.ngrok.io/resume';
+  final String flaskEndPoint = 'http://4f7daecf.ngrok.io/resume';
 
   File _storedImage;
   Future<void> _takePicture() async {

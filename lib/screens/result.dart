@@ -25,7 +25,7 @@ class _ResultState extends State<Result> {
   @override
   initState() {
     result="";
-    flaskEndPoint = 'http://8ed577ab.ngrok.io/'+widget.action;
+    flaskEndPoint = 'http://4f7daecf.ngrok.io/'+widget.action;
     super.initState();
   }
 
