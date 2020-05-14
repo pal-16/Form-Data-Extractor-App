@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import '../screens/home.dart';
 import '../widgets/app_drawer.dart';
+import 'package:dio/dio.dart';
 
 class Resume extends StatefulWidget {
   static const routeName = '/resume';
@@ -12,6 +13,9 @@ class Resume extends StatefulWidget {
 }
 
 class __ResumeState extends State<Resume> {
+
+  final String flaskEndPoint = 'http://75b868c2.ngrok.io/resume';
+
   File _storedImage;
   Future<void> _takePicture() async {
     final imageFile = await ImagePicker.pickImage(
@@ -31,6 +35,16 @@ class __ResumeState extends State<Resume> {
     });
   }
 
+  void _upload() async{
+    Response response;
+    Dio dio = new Dio();
+    FormData formData = FormData.fromMap({
+      "file": await MultipartFile.fromFile(_storedImage.path, filename: "upload.jpg")
+    });
+    response = await dio.post(flaskEndPoint, data: formData);
+    print(response.data);
+  }
+
   Widget doneButton() {
     return _storedImage != null
         ? Padding(
@@ -39,6 +53,7 @@ class __ResumeState extends State<Resume> {
             child: MaterialButton(
               textColor: Colors.white,
               onPressed: () {
+                _upload();
                 Navigator.push(
                     context, MaterialPageRoute(builder: (context) => Home()));
               },

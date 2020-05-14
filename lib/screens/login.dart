@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../screens/signup.dart';
 import '../Animation/FadeAnimation.dart';
 import '../screens/home.dart';
-import '../screens/companyv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../providers/model.dart';
@@ -24,7 +23,6 @@ class _LoginState extends State<Login> {
   final TextEditingController _passwordController = new TextEditingController();
   final TextEditingController _emailController = new TextEditingController();
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-
 
   void _saveForm() async {
     setState(() {
@@ -298,7 +296,7 @@ class _LoginState extends State<Login> {
                                   fontFamily: "Aleo",
                                   fontSize: (16)),
                             ),
-                            onTap: (){},
+                            onTap: () {},
                           ),
                           InkWell(
                             child: Text(

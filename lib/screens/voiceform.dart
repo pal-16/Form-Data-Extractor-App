@@ -4,6 +4,7 @@ import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../providers/model.dart';
 
 class VoiceHome extends StatefulWidget {
   static List<LocaleName> localeNames = [];
@@ -18,9 +19,8 @@ class _VoiceHomeState extends State<VoiceHome> {
 
   List<dynamic> properties;
 
-  // Do not change any list definitions from List<...> ... = [] to List<...> ... = new List()
-  List<String> form = [];
-
+  // Do not change any list definitions from List<...> ... = [] to List<...> ... = new List
+  var details = new Map();
   List<TextEditingController> controllers = [];
 
   List<String> result = [];
@@ -123,21 +123,27 @@ class _VoiceHomeState extends State<VoiceHome> {
     }
   }
 
+  int flag = 0;
   getForm() async {
     for (int i = 0; i < properties.length; i++) {
-      form.add(properties[i]);
-      form.add(controllers[i].text);
+      if (properties[i] == 'email') {
+        details[properties[i]] = User.email;
+        flag = 1;
+      } else
+        details[properties[i]] = controllers[i].text;
     }
-    print(form);
-
-    final String url = "http://4f17cde4.ngrok.io/getformfields";
+    if (flag == 0) {
+      details['email'] = User.email;
+    }
+    print(details);
+    final String url = "http://2ec43766.ngrok.io/getformdetails";
     final response = await http.post(
       url,
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
       },
-      body: json.encode({'data': form}),
+      body: json.encode(details),
     );
   }
 

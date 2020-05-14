@@ -12,6 +12,7 @@ import 'screens/result.dart';
 import 'screens/companyv.dart';
 import 'screens/voiceform.dart';
 
+
 void main() {
   runApp(TernaApp());
 }

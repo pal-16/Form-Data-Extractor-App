@@ -1,10 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:terna_app/screens/settings.dart';
 import 'package:terna_app/screens/voiceform.dart';
-
 import '../screens/voiceform.dart';
 import '../widgets/app_drawer.dart';
 import '../providers/model.dart';
@@ -87,7 +85,7 @@ class _CompanyvState extends State {
     });
     print(holder);
 
-    final String url = "http://4394f4a3.ngrok.io/voice";
+    final String url = "http://2ec43766.ngrok.io/createvoicefields";
     final response = await http.post(
       url,
       headers: {
@@ -101,7 +99,7 @@ class _CompanyvState extends State {
   var getholder = [];
 
   getPreview() async {
-    final String url = "http://4394f4a3.ngrok.io/getvoice";
+    final String url = "http://2ec43766.ngrok.io/getvoicefields";
     print(User.email);
     final response = await http.post(
       url,

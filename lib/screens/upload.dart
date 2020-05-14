@@ -95,8 +95,7 @@ class __UploadState extends State<Upload> {
         elevation: 5,
         shape: StadiumBorder(),
       ),
-    )
-        : SizedBox();
+    ) : SizedBox();
   }
   @override
   Widget build(BuildContext context) {
