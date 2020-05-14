@@ -6,6 +6,7 @@ import '../screens/companyv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../providers/model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   static const routeName = '/login';
@@ -22,6 +23,7 @@ class _LoginState extends State<Login> {
   final TextEditingController _emailcontroller = new TextEditingController();
   final TextEditingController _passwordController = new TextEditingController();
   final TextEditingController _emailController = new TextEditingController();
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
 
   void _saveForm() async {
@@ -67,7 +69,7 @@ class _LoginState extends State<Login> {
         }
       });
 
-      final String url = "http://f880b9d1.ngrok.io/login";
+      final String url = "http://8ed577ab.ngrok.io/applogin";
       final response = await http.post(
         url,
         headers: {
@@ -82,12 +84,15 @@ class _LoginState extends State<Login> {
       print(response.body);
       final jsonData = json.decode(response.body);
       User.email = jsonData['email'];
-      print(User.email);
+      User.username = jsonData['result'][0][2];
       if (jsonData['logged'] == 1) {
+        final SharedPreferences prefs = await _prefs;
+        prefs.setString("email", User.email);
+        prefs.setString("name", User.username);
         setState(() {
           isProcessing = false;
         });
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home(jsonData["result"][0][2], jsonData["result"][0][1])));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home(User.username, User.email)));
       } else {
         setState(() {
           hasFailed = true;

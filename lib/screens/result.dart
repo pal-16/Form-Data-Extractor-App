@@ -1,8 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
-//import 'package:terna_app/screens/home.dart';
-//import 'package:flutter/services.dart';
-//import '../screens/upload.dart';
+import 'package:terna_app/screens/home.dart';
+import 'package:flutter/services.dart';
+import '../screens/upload.dart';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import '../widgets/app_drawer.dart';
@@ -19,18 +20,12 @@ class Result extends StatefulWidget {
 
 class _ResultState extends State<Result> {
   String flaskEndPoint;
+  String result;
 
   @override
   initState() {
-    if (widget.action == "summarize") {
-      flaskEndPoint = 'http://f880b9d1.ngrok.io/home/summarizer';
-    } else if (widget.action == "resume") {
-      flaskEndPoint = 'http://f880b9d1.ngrok.io/home/resume';
-    } else if (widget.action == "feedback") {
-      flaskEndPoint = 'http://f880b9d1.ngrok.io/home/sentimental';
-    } else {
-      flaskEndPoint = 'http://f880b9d1.ngrok.io/home/registration';
-    }
+    result="";
+    flaskEndPoint = 'http://8ed577ab.ngrok.io/'+widget.action;
     super.initState();
   }
 
@@ -39,14 +34,35 @@ class _ResultState extends State<Result> {
     Response response;
     Dio dio = new Dio();
     FormData formData = FormData.fromMap({
-      "file": await MultipartFile.fromFile(widget.imageFile.path,
-          filename: "upload.jpg")
+      "file-name": await MultipartFile.fromFile(widget.imageFile.path,
+          filename: "upload.jpg"),
+      "param":1,
     });
     response = await dio.post(flaskEndPoint, data: formData,
         onSendProgress: (int sent, int total) {
-      print("$sent / $total");
-    });
+          print("$sent / $total");
+        });
     print(response.data);
+    var res = response.data;
+
+
+    if(res["from"]=="classifier"){
+      print("from classifier");
+      result+=res["data"]["classifier_data"];
+
+    }
+    else if(res["from"]=="resume"){
+      print("from resume");
+      result+=res["data"]["resume_data"].toString();
+    }
+    else if(res["from"]=="sentiment_analysis"){
+      print("from sentiment");
+      result+=res["data"]["sentiment_analysis"];
+    }
+    else{
+      print("from summarizer");
+      result=res["data"]["summary"];
+    }
     return response.data;
   }
 
@@ -64,12 +80,20 @@ class _ResultState extends State<Result> {
         color: Colors.white,
       ),
       actions: <Widget>[
-        IconButton(
-            icon: Icon(Icons.settings), color: Colors.white, onPressed: () {})
+        FlatButton(
+          child: Text("Done"),
+          shape: StadiumBorder(),
+          textColor: Colors.white,
+          color: Color(0xff8f94fb),
+          onPressed: () => Navigator.pop(context),
+        )
       ],
       backgroundColor: Color.fromRGBO(143, 148, 251, 1),
     );
   }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +121,10 @@ class _ResultState extends State<Result> {
                   );
                 }
                 if (snapshot.hasError) {
-                  return Text("Error");
+                  return Container(child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("Internal Server Error!"),
+                  ));
                 }
                 return Column(
                   children: <Widget>[
@@ -110,7 +137,7 @@ class _ResultState extends State<Result> {
                             child:Flex(
                               direction: Axis.horizontal,
                               children: <Widget>[
-                                Flexible(child: Text(snapshot.data['text'].toString()))
+                                Flexible(child: ConditionalText(widget.action, result))
                               ],
                             ),
                           ),
@@ -141,5 +168,38 @@ class _ResultState extends State<Result> {
             ),
           ),
         ));
+  }
+}
+
+class ConditionalText extends StatelessWidget {
+  final String action;
+  final String text;
+  ConditionalText(this.action, this.text);
+
+  @override
+  Widget build(BuildContext context) {
+    String result;
+    if(action == "resume"){
+      final resumeData = json.decode(text);
+      result += "Candidate Name: ${resumeData['candidate_name'][0]}\n\n";
+      result += "Databases: \n";
+      for(int i=0; i<resumeData['databases']; i++){
+        result += resumeData['databases'][i] + ", ";
+      }
+      result += "\n\nEmail: ${resumeData['email'][0]}\n\n";
+      result += "Hobbies: \n";
+      for(int i=0; i<resumeData['hobbies']; i++){
+        result += resumeData['hobbies'][i] + ", ";
+      }
+      result += "\n\nPhone Number: ${resumeData['phone'][0]}\n\n";
+      result += "Programming Languages: \n";
+      for(int i=0; i<resumeData['programming languages']; i++){
+        result += resumeData['programming languages'][i] + ", ";
+      }
+      result += "\n\nUniversity: ${resumeData['universities'][0]}\n\n";
+    }else{
+      result = text;
+    }
+    return Text(result, style: TextStyle(fontSize: 22.0),);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 //import 'package:flutter/services.dart';
 import 'screens/summarize.dart';
 import 'screens/login.dart';
@@ -44,7 +45,52 @@ class _TernaAppState extends State<TernaApp> {
         Companyv.routeName: (ctx) => Companyv(),
         VoiceHome.routeName: (ctx) => VoiceHome(),
       },
-      home: Login(),
+      home: MyConditionalWidget(),
+    );
+  }
+}
+
+class MyConditionalWidget extends StatefulWidget {
+  @override
+  _MyConditionalWidgetState createState() => _MyConditionalWidgetState();
+}
+
+class _MyConditionalWidgetState extends State<MyConditionalWidget> {
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  String email;
+  String username;
+
+  Future<Map<String, String>> checkLogin() async {
+    email = await _prefs.then((prefs) {
+      return (prefs.getString('email') ?? '');
+    });
+    print(email);
+    username = await _prefs.then((prefs) {
+      return (prefs.getString('name') ?? '');
+    });
+    return (email == '' && username == '')
+        ? Future.value(null)
+        : Future.value({"email": email, "username": username});
+  }
+
+  @override
+  void initState() {
+    checkLogin();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print(email);
+    return FutureBuilder(
+      future: checkLogin(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          if(snapshot.data['email'] != null && snapshot.data['username'] != null)
+            return Home(snapshot.data['username'], snapshot.data['email']);
+        }
+        return Login();
+      },
     );
   }
 }

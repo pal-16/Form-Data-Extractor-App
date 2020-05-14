@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../screens/home.dart';
 import '../screens/feedbackk.dart';
 import '../screens/upload.dart';
@@ -153,7 +154,10 @@ class MyAppDrawer extends StatelessWidget {
         "Logout",
         style: TextStyle(color: Color(0xff8f94fb)),
       ),
-      onPressed: () {
+      onPressed: () async{
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.remove("email");
+        prefs.remove("name");
         Navigator.of(context).pushReplacementNamed(Login.routeName);
       },
     );

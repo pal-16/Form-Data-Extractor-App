@@ -4,14 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:terna_app/screens/settings.dart';
 import '../screens/upload.dart';
 import '../widgets/app_drawer.dart';
+import '../screens/resume.dart';
 
 // hex code for primary color - 8f94fb
 
 class Home extends StatefulWidget {
   static const routeName = '/home';
   final String username;
+  final String password;
   final String email;
-  Home([this.username="Anonymus", this.email="Anonymus"]);
+  Home(
+      [this.username = "Anonymus",
+        this.email = "Anonymus",
+        this.password = "Anonymus"]);
 
   @override
   _HomeState createState() => new _HomeState();
@@ -42,8 +47,11 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.settings),
             color: Colors.white,
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SettingsPage(widget.username ,widget.email)));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SettingsPage(
+                          widget.username, widget.email, widget.password)));
             })
       ],
       backgroundColor: Colors.transparent,
@@ -59,8 +67,10 @@ class _HomeState extends State<Home> {
       return Padding(
         padding: const EdgeInsets.all(13.0),
         child: GestureDetector(
-          onTap: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Upload(action))),
+          onTap: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Upload(action)));
+          },
           child: Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0),
@@ -100,11 +110,11 @@ class _HomeState extends State<Home> {
           // Generate 100 widgets that display their index in the List.
           children: [
             homeCard(
-                "assets/images/1.png", "Scan Hardcopy Form", "registration"),
-            homeCard("assets/images/2.png", "Generate Summary", "summarize"),
+                "assets/images/1.png", "Scan Hardcopy Form", "classifier"),
+            homeCard("assets/images/2.png", "Generate Summary", "summarizer"),
             homeCard("assets/images/3.png", "Evaluate your Resume", "resume"),
             homeCard(
-                "assets/images/4.png", "Evaluate Feedback Forms", "feedback"),
+                "assets/images/4.png", "Evaluate Feedback Forms", "sentimental"),
           ],
         ),
       );
@@ -140,34 +150,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-/*
-new Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                  child: Text(
-                    'This screen appears after logging and signup',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(10),
-                  child: RaisedButton(
-                    color: Color.fromRGBO(143, 148, 251, 1),
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Upload()));
-                    },
-                    child: Text(
-                      'Upload',
-                    ),
-                  ),
-                )
-              ],
-            ),
-*/

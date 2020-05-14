@@ -85,7 +85,7 @@ class _Signup extends State<Signup> {
         }
       });
 
-      final String url = "http://f880b9d1.ngrok.io/register";
+      final String url = "http://8ed577ab.ngrok.io/appregister";
       final response = await http.post(
         url,
         headers: {
