@@ -1,15 +1,17 @@
-# FormDataExtractorApp
+# Form Data Extractor App
 App for extracting text from images and performing relevant analysis. Ananlysis includes skills extraction from resumes, sentimental analysis of feedback forms and extractive text summarisation of large texts.
 
 
-![Screenshot](readme-1.JPG)
+!<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/retrieved-form.JPG" height = 300/>
+!<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/cmd.jpeg" height = 300/> 
 
-![Screenshot](screenshot.JPG)
+<br>
+<br>
+!<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/selection.jpeg" height = 250/> 
 
 
-Website and Backend
+# Website and Backend
 https://github.com/pal-16/FormExtractorWebsite
 
-Voice Form Logic and Backend
-https://github.com/pal-16/FormExtractorWebsite
+
 
