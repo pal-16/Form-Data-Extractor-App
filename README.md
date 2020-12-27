@@ -7,7 +7,7 @@ App for extracting text from images and performing relevant analysis. Ananlysis 
 
 <br>
 <br>
-!<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/selection.jpeg" height = 250/> 
+!<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/command-line.JPG" height = 250 /> 
 
 
 # Website and Backend
