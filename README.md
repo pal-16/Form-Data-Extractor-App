@@ -1,9 +1,3 @@
----
-title: Linguist
-permalink: "/submissions/:title"
-team_name: Underwoods
-description: "An app that translates to and from the six Latin based languages i.e. English, Spanish, French, Italian, Portuguese and Romanian."
----
 
 # Form Data Extractor App
 
@@ -23,115 +17,10 @@ The important concepts used in this app are:
 * Speech to Text 
 
 Package used: speech_to_text
-    
-    {% highlight dart %}
-    void initializeSpeechState() async { 
-        bool hasSpeech = await speech.initialize( 
-        onError: errorListener, onStatus: statusListener); 
-        if (!mounted) return; 
-        setState(() { 
-        _hasSpeech = hasSpeech; 
-        }); 
-    }
-    {% endhighlight %}
-    
+  
  
  * Image to Text  
     
- Package used: image_picker, image_cropper
-    
-     {% highlight dart %}
-     Future<void> textDetect(var img) async { 
-      FirebaseVisionImage ourImage = FirebaseVisionImage.fromFile(img); 
-      TextRecognizer ourtext = FirebaseVision.instance.textRecognizer(); 
-      VisionText readtext = await ourtext.processImage(ourImage); 
- 
-      //Extracting each word for every line in text block  
-      for (TextBlock block in readtext.blocks) { 
-        for (TextLine line in block.lines) { 
-          for (TextElement element in line.elements) { 
-            text = text + element.text + ' '; 
-          } 
-        } 
-      } 
-      ourtext.close(); 
-      await translate(text); 
-     } 
-    }
-    {% endhighlight %}
-  
-    
-To crop the image
-
-    {% highlight dart %}
-    Future<void> cropImage(var img) async { 
-      var cropped = await ImageCropper.cropImage( 
-      sourcePath: img.path, 
-      aspectRatioPresets: Platform.isAndroid 
-      ? [ 
-          CropAspectRatioPreset.square, 
-          CropAspectRatioPreset.ratio3x2, 
-          CropAspectRatioPreset.original, 
-          CropAspectRatioPreset.tRatioPreset.ratio4x3, 
-          CropAspectRatioPreset.ratio16x9 
-        ] 
-      : [ 
-          CropAspectRatioPreset.original, 
-          CropAspectRatioPreset.tRatioPreset.square,  
-          CropAspectRatioPreset.ratio3x2, 
-          CropAspectRatioPreset.ratio4x3, 
-          CropAspectRatioPreset.ratio5x3, 
-          CropAspectRatioPreset.ratio5x4, 
-          CropAspectRatioPreset.ratio7x5, 
-          CropAspectRatioPreset.ratio16x9 
-        ], 
-       {% endhighlight %}
-   
- * Translation
-   
-Package used: firebase_mlkit_language
-
-_This package takes time to download the language files when used for the first time._ 
-
-Function with both languages as parameters to translate text
-
-    {% highlight dart %}    
-    Future<void> translate(String text) async { 
-     inputText = text; 
-     var result = await FirebaseLanguage.instance 
-     .languageTranslator(MainScreen.translateFrom, MainScreen.translateTo) 
-     .processText(inputText); 
-     setState(() { 
-     MainScreen.translatedText = result; 
-     });
-    }
-    {% endhighlight %}
-       
-    
- * Text to audio 
-    
- Package used: flutter_tts
- 
- Function for pronunciation of translated text
- 
-    {% highlight dart %}
-    Future _speak({String text, String lang}) async { 
-     await flutterTts.setVolume(volume); 
-     await flutterTts.setSpeechRate(rate); 
-     await flutterTts.setPitch(pitch); 
-     await flutterTts.setLanguage(lang); 
- 
-     if (text != null) { 
-      if (text.isNotEmpty) { 
-        var result = await flutterTts.speak(text); 
-        if (result == 1) setState(() => ttsState = TtsState.playing); 
-      } 
-     } 
-    } 
-    {% endhighlight %}
-
-* GitHub repository link: [Link to repository](https://github.com/MahekNakhua/Linguist.git)
-* Drive link: [Drive link](https://drive.google.com/drive/folders/10BDol13jzBzpk8mgG5MAUVj6DDYIlZxW?usp=sharing)
 
 ## Technology stack
 * Language
