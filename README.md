@@ -1,11 +1,10 @@
 
 # Form Data Extractor App
 
-* App for extracting text from images and performing relevant analysis. Ananlysis includes skills extraction from resumes, sentimental analysis of feedback forms and extractive text summarisation of large texts.
 
 ## Description
 
-An app that translates to and from the six Latin based languages i.e. English, Spanish, French, Italian, Portuguese and Romanian.   
+ App for extracting text from images and performing relevant analysis. Ananlysis includes skills extraction from resumes, sentimental analysis of feedback forms and extractive text summarisation of large texts.
 
 This app supports various input modes such as: 
  - Speech 
