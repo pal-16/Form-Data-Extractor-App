@@ -44,13 +44,13 @@ https://github.com/pal-16/FormExtractorWebsite
 - We also plan to add a history feature so that our users can revisit their previous searches.
 
 ## Screenshots and Working
-!<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/retrieved-form.JPG" height = 300/>
-!<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/cmd.jpeg" height = 300/> 
+!<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/images/retrieved-form.JPG" height = 300/>
+!<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/images/cmd.jpeg" height = 300/> 
 
 <br>
 <br>
 
-!<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/command-line.JPG" height = 110 /> 
+!<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/images/command-line.JPG" height = 110 /> 
 
 
 
