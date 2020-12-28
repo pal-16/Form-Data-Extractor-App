@@ -10,6 +10,8 @@ app.config['MYSQL_PASSWORD'] = '#'
 app.config['MYSQL_DB']	= 'flutter'
 mysql = MySQL(app)
 api = Api(app)
+
+##The corresponding flutter code can be found in the Flutter Folder
 class UserLogin(Resource):
 
    def get(self):
@@ -44,8 +46,7 @@ class UserRegister(Resource):
       print(emailt) 
 
       cur = mysql.connection.cursor()
-      #palak="Create DATABASE if not exists "+emailt+" "
-      #cur.execute(palak)
+      #exec_query="Create DATABASE if not exists "+emailt+" "
       print(email)
       temp="CREATE TABLE if not exists "+emailt+" (id int PRIMARY KEY AUTO_INCREMENT, email varchar(200), password varchar(200),type varchar(200))"
       cur.execute(temp)
@@ -62,12 +63,11 @@ class Voice(Resource):
     
    def post(self):
       data = request.get_json()
-      s=data                                 
-      palak=s['data']
-      print(palak)
+      get_data=data                                 
+      temp=get_data['data']
       cur = mysql.connection.cursor()
       cur.execute('CREATE TABLE if not exists voice(myset varchar(2000))')
-      for i in palak:
+      for i in temp:
          print(i)
          sql = "INSERT INTO voice VALUES (%s)"
          cur.execute(sql,[i])
@@ -95,7 +95,7 @@ class RetrieveVoice(Resource):
       print(ans)
       return ans
 
-#jwt = JWT(app, authenticate, identity)
+
 api.add_resource(UserRegister, '/register')
 api.add_resource(UserLogin, '/login')
 api.add_resource(Voice, '/voice')
