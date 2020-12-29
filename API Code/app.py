@@ -11,7 +11,10 @@ app.config['MYSQL_DB']	= 'flutter'
 mysql = MySQL(app)
 api = Api(app)
 
-##The corresponding flutter code can be found in the Flutter Folder
+#==================================================================
+# The corresponding flutter code can be found in the Flutter Folder
+#==================================================================
+
 class UserLogin(Resource):
 
    def get(self):
