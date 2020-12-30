@@ -29,12 +29,16 @@ Package used: speech_to_text
 https://github.com/pal-16/FormExtractorWebsite
 
 ## Screenshots and Working
+
+The orgnaization creates form , and the voice form gets dispalyed to the user<br>
 !<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/images/retrieved-form.JPG" height = 300/>
 !<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/images/cmd.jpeg" height = 300/> 
 
 <br>
 <br>
 
+
+This image shows how organziation table is formed<br>
 !<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/images/command-line.JPG" height = 110 /> 
 
 
