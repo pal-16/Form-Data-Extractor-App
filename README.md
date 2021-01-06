@@ -4,7 +4,7 @@
 
 ## Description
 
- App for extracting text from images and performing relevant analysis. Ananlysis includes skills extraction from resumes, sentimental analysis of feedback forms and extractive text summarisation of large texts.
+A Flutter App for extracting text from images and performing relevant analysis. Ananlysis includes skills extraction from resumes, sentimental analysis of feedback forms and extractive text summarisation of large texts.
 
 This app has 2 users
  - user 
