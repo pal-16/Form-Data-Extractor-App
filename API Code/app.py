@@ -5,7 +5,7 @@ from flask_mysqldb import MySQL
 app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'	
-app.config['MYSQL_PASSWORD'] = ''    #password of local MySQL Database
+app.config['MYSQL_PASSWORD'] = ''    v         #password of local MySQL Database
 app.config['MYSQL_DB']	= 'voiceforms'         # create a database as a part of admin side of the whole app
 
 mysql = MySQL(app)
@@ -77,8 +77,8 @@ class Login(Resource):
         email = data['email']
         password = data['password']
         typeOfUser=data['type']
-        emailt=email.split("@")[0]
-        string = "SELECT * FROM "+emailt+" WHERE email = '"+email+"' and password ='"+password+"' and type ='"+typeOfUser+"' "
+        email_table=email.split("@")[0]
+        string = "SELECT * FROM "+email_table+" WHERE email = '"+email+"' and password ='"+password+"' and type ='"+typeOfUser+"' "
         cur = mysql.connection.cursor()
         cur.execute(string)
         result = cur.fetchall()
@@ -92,11 +92,11 @@ class Register(Resource):
       email = data['email']
       password = data['password']
       typee = data['type']
-      emailt=email.split("@")[0]
+      email_table=email.split("@")[0]
       cur = mysql.connection.cursor()
-      temp="CREATE TABLE if not exists "+emailt+" (id int PRIMARY KEY AUTO_INCREMENT,name varchar(200), email varchar(200), password varchar(200),type varchar(200))"
+      temp="CREATE TABLE if not exists "+email_table+" (id int PRIMARY KEY AUTO_INCREMENT,name varchar(200), email varchar(200), password varchar(200),type varchar(200))"
       cur.execute(temp)
-      flag="INSERT INTO "+emailt+" (email,name,password,type) VALUES(%s,%s,%s,%s)"
+      flag="INSERT INTO "+email_table+" (email,name,password,type) VALUES(%s,%s,%s,%s)"
       cur.execute(flag,(email,name,password,typee))
       mysql.connection.commit()
       return {"message": "User created successfully."}, 201
