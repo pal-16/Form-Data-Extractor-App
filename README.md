@@ -1,51 +1,36 @@
 
 # Form Data Extractor App
 
-
-## Description
-
 A Flutter App for extracting text from images and performing relevant analysis. Ananlysis includes skills extraction from resumes, sentimental analysis of feedback forms and extractive text summarisation of large texts.
 
-This app has 2 users
- - user 
- - orgnaization
+The app has 2 entities
+ * User 
+ * Company/Organization
  
 The important concepts used in this app are: 
 
 * Speech to Text 
+* Custom Database Features
 
-Package used: speech_to_text
- 
-* custom database functionality 
 
 ## Technology stack
 * Flutter
 * MySQL
 * Python
   
-
-
-## Website and Backend
+## Website
 https://github.com/pal-16/FormExtractorWebsite
 
 ## Screenshots and Working
 
-The orgnaization creates form , and the voice form gets dispalyed to the user<br>
-!<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/images/cmd.jpeg" height = 300/> 
-!<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/images/retrieved-form.JPG" height = 300/>
-
+## Organization workflow<br>
+<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/images/home.jpeg" height = 300> <img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/images/appdrawer.jpeg" height = 300/> <img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/images/formfields.jpeg" height = 300/>
 <br>
-<br>
+## User workflow<br>
+<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/images/1.jpeg" height = 300/> <img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/images/2.jpeg" height = 300/> <img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/images/3.jpeg" height = 300/>
 
-
-Organziation table will be formed once the form fields are retrieved<br>
-!<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/images/command-line.JPG" height = 110 /> 
-
-
-
-
-
-
-
+## Form Fields are stored in the database with user entered values added to the respective form table
+<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/images/Capture.JPG" width= 350 height = 150/>
+<img src="https://github.com/pal-16/FormDataExtractorApp/blob/master/images/database.JPG" width=350 height = 150/>
 
 
