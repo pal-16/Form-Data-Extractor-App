@@ -5,7 +5,7 @@ from flask_mysqldb import MySQL
 app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'	
-app.config['MYSQL_PASSWORD'] = ''    v         #password of local MySQL Database
+app.config['MYSQL_PASSWORD'] = ''              # password of local MySQL Database
 app.config['MYSQL_DB']	= 'voiceforms'         # create a database as a part of admin side of the whole app
 
 mysql = MySQL(app)
@@ -71,7 +71,7 @@ class RetrieveFormFields(Resource):
       return formfields
 
 class Login(Resource):
-   # Basic Authentication using Login and Register Class
+   # Basic Authentication using Login Class
    def post(self):
         data = request.get_json()
         email = data['email']
@@ -85,19 +85,19 @@ class Login(Resource):
         return {"message": "User exists", "result":result, "email":email, "type":typeOfUser}, 201
 
 class Register(Resource):
-   # Basic Authentican using Login and Register Class
+   # Basic Authentication using Register Class
    def post(self):
       data = request.get_json()  
       name = data['name']
       email = data['email']
       password = data['password']
-      typee = data['type']
+      typeOfUser = data['type']
       email_table=email.split("@")[0]
       cur = mysql.connection.cursor()
       temp="CREATE TABLE if not exists "+email_table+" (id int PRIMARY KEY AUTO_INCREMENT,name varchar(200), email varchar(200), password varchar(200),type varchar(200))"
       cur.execute(temp)
       flag="INSERT INTO "+email_table+" (email,name,password,type) VALUES(%s,%s,%s,%s)"
-      cur.execute(flag,(email,name,password,typee))
+      cur.execute(flag,(email,name,password,typeOfUser))
       mysql.connection.commit()
       return {"message": "User created successfully."}, 201
 
