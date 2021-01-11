@@ -6,36 +6,16 @@ import 'package:terna_app/screens/voiceform.dart';
 import '../screens/voiceform.dart';
 import '../widgets/app_drawer.dart';
 import '../providers/model.dart';
+import '../global.dart';
 
-/*class Companyv extends StatelessWidget {
-  static const routeName = '/home';
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-        title: Text("Flutter Create Checkbox Dynamically"),
-        ),
-        body: SafeArea(
-          child : Center(
- 
-          child:CheckboxWidget(),
- 
-          )
-        )
-      ),
-    );
-  }
-}
-*/
-class Companyv extends StatefulWidget {
-  static const routeName = '/home';
+class UserVoiceForm extends StatefulWidget {
+  static const routeName = '/userhome';
 
   @override
-  _CompanyvState createState() => new _CompanyvState();
+  _UserVoiceFormState createState() => new _UserVoiceFormState();
 }
 
-class _CompanyvState extends State {
+class _UserVoiceFormState extends State {
   Map<String, bool> numbers = {
     'Name': false,
     'Email': false,
@@ -72,42 +52,19 @@ class _CompanyvState extends State {
     );
   }
 
-  var holder = [];
-
-  Future<void> saveForm() async {
-    print("hello");
-    numbers.forEach((key, value) {
-      if (!holder.contains(key)) {
-        if (value == true) {
-          holder.add(key);
-        }
-      }
-    });
-    print(holder);
-
-    final String url = "http://2ec43766.ngrok.io/createvoicefields";
-    final response = await http.post(
-      url,
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-      },
-      body: json.encode({'data': holder, 'email': User.email}),
-    );
-  }
+  var holder;
 
   var getholder = [];
 
-  getPreview() async {
-    final String url = "http://2ec43766.ngrok.io/getvoicefields";
-    print(User.email);
+  Future<void> getPreview() async {
+    final String url = urlInitial + "getformfields";
     final response = await http.post(
       url,
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
       },
-      body: json.encode({'email': User.email}),
+      body: json.encode({'formname': holder}),
     );
 
     final jsonData = json.decode(response.body);
@@ -122,7 +79,7 @@ class _CompanyvState extends State {
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text(
-          "enter the field you want to add",
+          "Enter the form company name you want to fill?",
           style: TextStyle(fontFamily: 'Aleo', fontWeight: FontWeight.bold),
         ),
         content: TextFormField(controller: customController),
@@ -132,8 +89,7 @@ class _CompanyvState extends State {
                 style:
                     TextStyle(fontFamily: 'Aleo', fontWeight: FontWeight.bold)),
             onPressed: () {
-              if (customController.text != '')
-                holder.add(customController.text);
+              if (customController.text != '') holder = customController.text;
               Navigator.of(context).pop();
             },
           )
@@ -151,22 +107,8 @@ class _CompanyvState extends State {
       appBar: appBar(_scaffoldKey),
       body: Column(
         children: <Widget>[
-          Expanded(
-            child: ListView(
-              children: numbers.keys.map((String key) {
-                return new CheckboxListTile(
-                  title: new Text(key),
-                  value: numbers[key],
-                  activeColor: Colors.black,
-                  checkColor: Colors.white,
-                  onChanged: (bool value) {
-                    setState(() {
-                      numbers[key] = value;
-                    });
-                  },
-                );
-              }).toList(),
-            ),
+          SizedBox(
+            height: 250,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -179,32 +121,9 @@ class _CompanyvState extends State {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Icon(Icons.save),
+                        Icon(Icons.search),
                         Text(
-                          " Save Form",
-                          style: TextStyle(fontSize: 15),
-                        ),
-                      ],
-                    ),
-                    onPressed: saveForm,
-                    color: Color(0xff8f94fb),
-                    textColor: Colors.white,
-                    splashColor: Colors.grey,
-                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(7.0),
-                  child: RaisedButton(
-                    shape: StadiumBorder(),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.add),
-                        Text(
-                          " Add my own field ",
+                          "Search for a company form",
                           style: TextStyle(fontSize: 15),
                         ),
                       ],
@@ -233,7 +152,7 @@ class _CompanyvState extends State {
                         Icon(Icons.call_received),
                         Text(
                           " Retrieve",
-                          style: TextStyle(fontSize: 15),
+                          style: TextStyle(fontSize: 12),
                         ),
                       ],
                     ),
@@ -256,14 +175,17 @@ class _CompanyvState extends State {
                         Icon(Icons.record_voice_over),
                         Text(
                           " Generate voice form",
-                          style: TextStyle(fontSize: 15),
+                          style: TextStyle(fontSize: 12),
                         ),
                       ],
                     ),
-                    onPressed: () {
-                      print(holder);
+                    onPressed: () async {
+                      await getPreview;
                       Navigator.of(context).pushNamed(VoiceHome.routeName,
-                          arguments: {"properties": getholder});
+                          arguments: {
+                            "properties": getholder,
+                            "formname": holder
+                          });
                     },
                     color: Color(0xff8f94fb),
                     textColor: Colors.white,

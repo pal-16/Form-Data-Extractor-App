@@ -5,6 +5,7 @@ import 'package:speech_to_text/speech_to_text.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../providers/model.dart';
+import '../global.dart';
 
 class VoiceHome extends StatefulWidget {
   static List<LocaleName> localeNames = [];
@@ -18,7 +19,7 @@ class _VoiceHomeState extends State<VoiceHome> {
   final SpeechToText speech = SpeechToText();
 
   List<dynamic> properties;
-
+  String formname;
   // Do not change any list definitions from List<...> ... = [] to List<...> ... = new List
   var details = new Map();
   List<TextEditingController> controllers = [];
@@ -26,7 +27,7 @@ class _VoiceHomeState extends State<VoiceHome> {
   List<String> result = [];
 
   List<String> temp = [];
-
+  List<String> finalresult = [];
   List<double> level = [];
 
   List<String> lastError = [];
@@ -111,6 +112,8 @@ class _VoiceHomeState extends State<VoiceHome> {
     final Map<String, dynamic> routeArgs =
         ModalRoute.of(context).settings.arguments;
     properties = routeArgs["properties"];
+    formname = routeArgs["formname"];
+
     for (int i = 0; i < properties.length; i++) {
       hasSpeech.add(true);
       controllers.add(new TextEditingController());
@@ -126,17 +129,20 @@ class _VoiceHomeState extends State<VoiceHome> {
   int flag = 0;
   getForm() async {
     for (int i = 0; i < properties.length; i++) {
-      if (properties[i] == 'email') {
+      /* if (properties[i] == 'email') {
         details[properties[i]] = User.email;
         flag = 1;
-      } else
-        details[properties[i]] = controllers[i].text;
+      } else*/
+      finalresult.add(controllers[i].text);
+      //details[properties[i]] = controllers[i].text;
     }
-    if (flag == 0) {
+    details['values'] = finalresult;
+    details['email'] = formname;
+    /*  if (flag == 0) {
       details['email'] = User.email;
-    }
+    }*/
     print(details);
-    final String url = "http://2ec43766.ngrok.io/getformdetails";
+    final String url = urlInitial + "addformdetails";
     final response = await http.post(
       url,
       headers: {

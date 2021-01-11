@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:terna_app/screens/uservoiceform.dart';
 //import 'package:flutter/services.dart';
 import 'screens/summarize.dart';
 import 'screens/login.dart';
@@ -7,11 +8,10 @@ import 'screens/signup.dart';
 import 'screens/home.dart';
 import 'screens/resume.dart';
 import 'screens/upload.dart';
-import 'screens/feedbackk.dart';
+import 'screens/feedback.dart';
 import 'screens/result.dart';
-import 'screens/companyv.dart';
+import 'screens/companyvoiceform.dart';
 import 'screens/voiceform.dart';
-
 
 void main() {
   runApp(TernaApp());
@@ -44,6 +44,7 @@ class _TernaAppState extends State<TernaApp> {
         Upload.routeName: (ctx) => Upload(),
         Result.routeName: (ctx) => Result(),
         Companyv.routeName: (ctx) => Companyv(),
+        UserVoiceForm.routeName: (ctx) => UserVoiceForm(),
         VoiceHome.routeName: (ctx) => VoiceHome(),
       },
       home: MyConditionalWidget(),
@@ -87,7 +88,8 @@ class _MyConditionalWidgetState extends State<MyConditionalWidget> {
       future: checkLogin(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          if(snapshot.data['email'] != null && snapshot.data['username'] != null)
+          if (snapshot.data['email'] != null &&
+              snapshot.data['username'] != null)
             return Home(snapshot.data['username'], snapshot.data['email']);
         }
         return Login();

@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 import '../Animation/FadeAnimation.dart';
 import '../screens/login.dart';
+import '../global.dart';
 
 class Signup extends StatefulWidget {
   static const routeName = '/signup';
@@ -83,7 +84,8 @@ class _Signup extends State<Signup> {
           type = 'user';
         }
       });
-      final String url = "http://4f7daecf.ngrok.io/appregister";
+      final String url = urlInitial + "register";
+      print(url);
       final response = await http.post(
         url,
         headers: {
@@ -251,10 +253,6 @@ class _Signup extends State<Signup> {
                           children: <Widget>[
                             Row(
                               children: <Widget>[
-                                Text("Type of user: "),
-                                SizedBox(
-                                  width: 50,
-                                ),
                                 Text('Company'),
                                 Radio(
                                   activeColor: Color(0xff8f94fb),

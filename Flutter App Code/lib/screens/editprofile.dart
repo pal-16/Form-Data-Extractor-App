@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../providers/model.dart';
-import '../screens/home.dart';
+import 'home.dart';
 
 class EditProfile extends StatefulWidget {
   static const routeName = '/editprofile';
@@ -50,7 +50,10 @@ class _EditProfileState extends State<EditProfile> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white,),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
         elevation: 0,

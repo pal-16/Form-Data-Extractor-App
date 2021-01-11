@@ -1,7 +1,7 @@
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import '../screens/home.dart';
+import 'home.dart';
 import '../widgets/app_drawer.dart';
 
 class Feedbackk extends StatefulWidget {

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:terna_app/screens/edit_profile.dart';
+import 'package:terna_app/screens/editprofile.dart';
 
 class SettingsPage extends StatelessWidget {
   final String username, password, email;
   SettingsPage(
       [this.username = "Anonymus",
-        this.email = "Anonymus",
-        this.password = "Anonymus"]);
+      this.email = "Anonymus",
+      this.password = "Anonymus"]);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

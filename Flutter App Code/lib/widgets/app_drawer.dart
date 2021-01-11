@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:terna_app/screens/uservoiceform.dart';
 import '../screens/home.dart';
-import '../screens/feedbackk.dart';
+import '../screens/feedback.dart';
 import '../screens/upload.dart';
 import '../screens/summarize.dart';
 import '../screens/resume.dart';
 import '../screens/login.dart';
-import '../screens/companyv.dart';
-
+import '../screens/companyvoiceform.dart';
+import '../providers/model.dart';
+import '../screens/uservoiceform.dart';
 /*class AppDrawer extends StatelessWidget {
   final AppBar appBar;
 
@@ -145,7 +147,7 @@ import '../screens/companyv.dart';
 
 class MyAppDrawer extends StatelessWidget {
   final String username;
-  MyAppDrawer([this.username="Anonymus"]);
+  MyAppDrawer([this.username = "Anonymus"]);
 
   showAlertDialog(BuildContext context) {
     // Create button
@@ -154,7 +156,7 @@ class MyAppDrawer extends StatelessWidget {
         "Logout",
         style: TextStyle(color: Color(0xff8f94fb)),
       ),
-      onPressed: () async{
+      onPressed: () async {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.remove("email");
         prefs.remove("name");
@@ -270,19 +272,35 @@ class MyAppDrawer extends StatelessWidget {
                     color: Colors.white,
                   ),
                 )),
-            ListTile(
-                leading: Icon(
-                  Icons.keyboard_voice,
-                  color: Colors.white,
-                ),
-                onTap: () => Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => Companyv())),
-                title: Text(
-                  "Voice Form",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                )),
+            User.typeOfUser == 'company'
+                ? ListTile(
+                    leading: Icon(
+                      Icons.keyboard_voice,
+                      color: Colors.white,
+                    ),
+                    onTap: () => Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => Companyv())),
+                    title: Text(
+                      "Generate Voice Form",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ))
+                : ListTile(
+                    leading: Icon(
+                      Icons.keyboard_voice,
+                      color: Colors.white,
+                    ),
+                    onTap: () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => UserVoiceForm())),
+                    title: Text(
+                      "Fill Voice Form",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    )),
             ListTile(
                 leading: Icon(
                   Icons.exit_to_app,

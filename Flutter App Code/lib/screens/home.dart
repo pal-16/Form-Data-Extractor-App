@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:terna_app/screens/settings.dart';
 import '../screens/upload.dart';
 import '../widgets/app_drawer.dart';
-import '../screens/resume.dart';
 
 // hex code for primary color - 8f94fb
 
@@ -15,8 +14,8 @@ class Home extends StatefulWidget {
   final String email;
   Home(
       [this.username = "Anonymus",
-        this.email = "Anonymus",
-        this.password = "Anonymus"]);
+      this.email = "Anonymus",
+      this.password = "Anonymus"]);
 
   @override
   _HomeState createState() => new _HomeState();
@@ -68,8 +67,8 @@ class _HomeState extends State<Home> {
         padding: const EdgeInsets.all(13.0),
         child: GestureDetector(
           onTap: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Upload(action)));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Upload(action)));
           },
           child: Card(
             shape: RoundedRectangleBorder(
@@ -109,12 +108,11 @@ class _HomeState extends State<Home> {
           crossAxisCount: 2,
           // Generate 100 widgets that display their index in the List.
           children: [
-            homeCard(
-                "assets/images/1.png", "Scan Hardcopy Form", "classifier"),
+            homeCard("assets/images/1.png", "Scan Hardcopy Form", "classifier"),
             homeCard("assets/images/2.png", "Generate Summary", "summarizer"),
             homeCard("assets/images/3.png", "Evaluate your Resume", "resume"),
-            homeCard(
-                "assets/images/4.png", "Evaluate Feedback Forms", "sentimental"),
+            homeCard("assets/images/4.png", "Evaluate Feedback Forms",
+                "sentimental"),
           ],
         ),
       );

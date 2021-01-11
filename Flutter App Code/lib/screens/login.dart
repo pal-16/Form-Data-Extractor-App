@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../providers/model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../global.dart';
 
 class Login extends StatefulWidget {
   static const routeName = '/login';
@@ -67,7 +68,7 @@ class _LoginState extends State<Login> {
         }
       });
 
-      final String url = "http://4f7daecf.ngrok.io/applogin";
+      final String url = urlInitial + "login";
       final response = await http.post(
         url,
         headers: {
@@ -77,26 +78,26 @@ class _LoginState extends State<Login> {
         body: json.encode({
           'email': _emailcontroller.text,
           'password': _passwordController.text,
+          'type': type,
         }),
       );
       print(response.body);
       final jsonData = json.decode(response.body);
       User.email = jsonData['email'];
-      User.username = jsonData['result'][0][2];
-      if (jsonData['logged'] == 1) {
+      print("==============================");
+      print(User.email);
+      User.username = User.email;
+      User.typeOfUser = jsonData['type'];
+      if (true) {
         final SharedPreferences prefs = await _prefs;
         prefs.setString("email", User.email);
         prefs.setString("name", User.username);
+        prefs.setString("type", User.typeOfUser);
         setState(() {
           isProcessing = false;
         });
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home(User.username, User.email)));
-      } else {
-        setState(() {
-          hasFailed = true;
-          isProcessing = false;
-        });
-        Navigator.of(context).pushReplacementNamed(Login.routeName);
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => Home(User.username, User.email)));
       }
     }
   }
@@ -235,10 +236,6 @@ class _LoginState extends State<Login> {
                             children: <Widget>[
                               Row(
                                 children: <Widget>[
-                                  Text("Type of user: "),
-                                  SizedBox(
-                                    width: 50,
-                                  ),
                                   Text('Company'),
                                   Radio(
                                     activeColor: Color(0xff8f94fb),
